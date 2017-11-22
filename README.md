@@ -1,5 +1,5 @@
 # Endless-Flight
-A game developed in Unity, for .Net Framework and C# moduel.
+A game developed in Unity, for .Net Framework and C# module.
 
 The project we are developing is a endless runner style game.
 We are devloping this project in the Unity game engine which uses the .Net Framework and we will program the scripts and game logic in C#.

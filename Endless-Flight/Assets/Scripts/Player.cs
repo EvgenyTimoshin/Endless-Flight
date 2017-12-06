@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
 	    {
             transform.Rotate(0,0,-Time.deltaTime * 10);
-	        currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, -maxHorizontalSpeed + -bonusHorizontalSpeed + -boostHorizontalSpeed, Time.deltaTime / 0.2f);
+	        //currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, -maxHorizontalSpeed + -bonusHorizontalSpeed + -boostHorizontalSpeed, Time.deltaTime / 0.2f);
 	    }
 
 	    if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))

@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
         currentAngle = rb.transform.eulerAngles;
         //Animator anim = GetComponent<Animator>();
         //anim.Play("TakeOff");
-        InvokeRepeating("spawnTerrain", 0, 0.5f);
+       // InvokeRepeating("spawnTerrain", 0, 0.5f);
         mainCamera = Camera.main;
 
     }

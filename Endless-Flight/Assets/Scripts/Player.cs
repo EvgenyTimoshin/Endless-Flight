@@ -17,10 +17,6 @@ public class Player : MonoBehaviour
     //float maxHorizontalSpeed = 5000;
     float bonusHorizontalSpeed = 0;
     float boostHorizontalSpeed = 0;
-    private float terrainPosZ = 495;
-    private float townPosZ = 490;
-
-    private bool controlZone = true;
     private bool FirstPersonView = false;
  
 
@@ -29,8 +25,13 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         currentAngle = rb.transform.eulerAngles;
-        //Animator anim = GetComponent<Animator>();
-        //anim.Play("TakeOff");
+        
+       //Animator anim = GetComponent<Animator>();
+       
+       //anim.enabled = true;
+       //anim["NewTakeOff"].wrapMode = WrapMode.Once;
+       //anim.Play("NewTakeOff");
+        //anim.enabled = false;
        // InvokeRepeating("spawnTerrain", 0, 0.5f);
         mainCamera = Camera.main;
 
@@ -49,7 +50,7 @@ public class Player : MonoBehaviour
 	        currentAngle = new Vector3(
 	            Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
 	            Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
-	            Mathf.LerpAngle(currentAngle.z, 45, Time.deltaTime));
+	            Mathf.LerpAngle(currentAngle.z, 30, Time.deltaTime));
 
             currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, -maxHorizontalSpeed + -bonusHorizontalSpeed + -boostHorizontalSpeed, Time.deltaTime );
             
@@ -61,7 +62,7 @@ public class Player : MonoBehaviour
 	        currentAngle = new Vector3(
 	            Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
 	            Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
-	            Mathf.LerpAngle(currentAngle.z, -45, Time.deltaTime));
+	            Mathf.LerpAngle(currentAngle.z, -30, Time.deltaTime));
 
             currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, maxHorizontalSpeed + bonusHorizontalSpeed + boostHorizontalSpeed, Time.deltaTime );
         }
@@ -123,12 +124,6 @@ public class Player : MonoBehaviour
 
     }
 
-    void spawnTerrain()
-    {
-        Instantiate((Resources.Load("Green1")),new Vector3(0,0,terrainPosZ), new Quaternion(0,0,0,0));
-        Instantiate((Resources.Load("town1")), new Vector3(170, 30, townPosZ), new Quaternion(0, 0, 0, 0));
-        terrainPosZ += 495;
-        townPosZ += 500;
-    }
+    
 
 }

@@ -55,6 +55,6 @@ public class IslandScript : MonoBehaviour {
         {
             islandChoice = "Islands/Island5";
         }
-        Instantiate((Resources.Load(islandChoice)), new Vector3(0, 0, transform.position.z + 1600), new Quaternion(0, 0, 0, 0));
+        Instantiate((Resources.Load(islandChoice)), new Vector3(0, 0, transform.position.z + 3200), new Quaternion(0, 0, 0, 0));
     }
 }

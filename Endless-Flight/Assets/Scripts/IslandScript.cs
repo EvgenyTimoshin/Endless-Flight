@@ -5,11 +5,8 @@
 using UnityEngine;
 using Random = System.Random;
 
-public class IslandScript : MonoBehaviour {
-
-    private float townPosZ = 490;
-    //private bool Loaded = false;
-    public int i = 0;
+public class IslandScript : MonoBehaviour
+{
 
     void Start()
     {
@@ -19,9 +16,8 @@ public class IslandScript : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-        Destroy(gameObject);
-
-        i++;
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
 
         Spawn_Next_Island();
         
@@ -35,6 +31,7 @@ public class IslandScript : MonoBehaviour {
 
     void Spawn_Next_Island()
     {
+        /*
         Random rnd = new Random();
         int choice = rnd.Next(1, 4);
         String islandChoice = "Island/Island2";
@@ -56,5 +53,36 @@ public class IslandScript : MonoBehaviour {
             islandChoice = "Islands/Island5";
         }
         Instantiate((Resources.Load(islandChoice)), new Vector3(0, 0, transform.position.z + 3200), new Quaternion(0, 0, 0, 0));
+        */
+        
+        Random rnd = new Random();
+        int choice = rnd.Next(1, 5);
+        String islandChoice = "Island2";
+
+        if (choice == 1)
+        {
+            islandChoice = "Island2";
+        }
+        if (choice == 2)
+        {
+            islandChoice = "Island3";
+        }
+        if (choice == 3)
+        {
+            islandChoice = "Island4";
+        }
+        if (choice == 4)
+        {
+            islandChoice = "Island5";
+        }
+        
+
+        GameObject island = GameObjectPool.current.GetPooledGameObject(islandChoice + "(Clone)");
+        //if(island == null) return;
+        
+        Debug.Log("Extracted : " + island.name);
+        island.transform.position = new Vector3(0, 0, transform.position.z + 3200);
+        island.SetActive(true);
+
     }
 }

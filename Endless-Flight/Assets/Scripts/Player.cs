@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        rb.AddRelativeForce(Vector3.forward * 10 * Time.deltaTime * 70);
+        rb.AddRelativeForce(Vector3.forward * 8 * Time.deltaTime * 70);
 
         if (Input.GetKey(KeyCode.A))
         {

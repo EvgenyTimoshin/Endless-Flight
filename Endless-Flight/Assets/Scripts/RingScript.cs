@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NUnit.Framework.Constraints;
+//using NUnit.Framework.Constraints;
 using Random = System.Random;
 
 public class RingScript : MonoBehaviour
 {
 
-    private float RingLifeSpan = 180;
+    private float RingLifeSpan = 600;
 
 	// Use this for initialization
 	void Start () {

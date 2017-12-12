@@ -23,7 +23,7 @@ public class RingSpawner : MonoBehaviour
 
     void Spawn_Rings()
     { 
-        int choice = rnd.Next(0,1);
+        int choice = rnd.Next(0,2);
 
         if (choice == 0)
         {
@@ -34,7 +34,7 @@ public class RingSpawner : MonoBehaviour
             ringColour = "Rings/ParticleSystemBlue";
         }
 
-        choice = rnd.Next(0, 3);
+        choice = rnd.Next(0, 4);
 
         if (choice == 0)
         {
@@ -52,7 +52,7 @@ public class RingSpawner : MonoBehaviour
         {
             if (transform.parent.parent.position.x > 200 && transform.parent.parent.position.x < 300)
             { 
-                choice = rnd.Next(0,1);
+                choice = rnd.Next(0,2);
                 if (choice == 0)
                 {
                     Diagnol_Right();

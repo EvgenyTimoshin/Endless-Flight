@@ -173,6 +173,8 @@ public class Player : MonoBehaviour
     {
         score++;
         scoreText.text = "Score :  " + score;
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.Play();
     }
 }
 

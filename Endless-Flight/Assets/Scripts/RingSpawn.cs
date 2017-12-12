@@ -24,18 +24,20 @@ public class RingSpawn : MonoBehaviour {
 
 	void OnTriggerExit(Collider other)
 	{
-		Destroy(gameObject);
-
-		i++;
-
-		Spawn_Rings();
-		//Diagnol_Left();
+		
 
 
 	}
 
 	void OnTriggerEnter(Collider other)
 	{
+		Destroy (gameObject);
+
+		i++;
+
+		Spawn_Rings ();
+		Diagnol_Left();
+		Diagnol_Right ();
 
 
 	}
@@ -58,17 +60,25 @@ public class RingSpawn : MonoBehaviour {
 
 		Instantiate((Resources.Load(ringColour)), new Vector3(230, 150, transform.position.z + 380), new Quaternion(0, 0, 0, 0));
 	}
-	/*
+
 	void Diagnol_Left() {
 
 		string ringColour = "Rings/ParticleSystemRed";
 
-		Instantiate((Resources.Load(ringColour)), new Vector3(230, 80, transform.position.z + 380), new Quaternion(0, 0, 0, 0));
-		Instantiate((Resources.Load (ringColour)), new Vector3 (280, 80, transform.position.z + 50), new Quaternion (0, 0, 0, 0));
-		Instantiate((Resources.Load(ringColour)), new Vector3(330, 80, transform.position.z + 50), new Quaternion(0, 0, 0, 0));
-		Instantiate((Resources.Load(ringColour)), new Vector3(380, 80, transform.position.z + 50), new Quaternion(0, 0, 0, 0));
+		Instantiate((Resources.Load(ringColour)), new Vector3(230, 150, transform.position.z + 680), new Quaternion(0, 0, 0, 0));
+		Instantiate((Resources.Load (ringColour)), new Vector3 (280, 150, transform.position.z + 730), new Quaternion (0, 0, 0, 0));
+		Instantiate((Resources.Load(ringColour)), new Vector3(330, 150, transform.position.z + 780), new Quaternion(0, 0, 0, 0));
+		Instantiate((Resources.Load(ringColour)), new Vector3(380, 150, transform.position.z + 830), new Quaternion(0, 0, 0, 0));
 	
 	}
 
-*/
+	void Diagnol_Right() {
+		string ringColour = "Rings/ParticleSystemRed";
+
+		Instantiate((Resources.Load(ringColour)), new Vector3(300, 150, transform.position.z + 900), new Quaternion(0, 0, 0, 0));
+		Instantiate((Resources.Load (ringColour)), new Vector3 (250, 150, transform.position.z + 950), new Quaternion (0, 0, 0, 0));
+		Instantiate((Resources.Load(ringColour)), new Vector3(200, 150, transform.position.z + 1000), new Quaternion(0, 0, 0, 0));
+		Instantiate((Resources.Load(ringColour)), new Vector3(150, 150, transform.position.z + 1050), new Quaternion(0, 0, 0, 0));
+	}
+		
 }

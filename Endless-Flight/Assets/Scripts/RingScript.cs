@@ -6,24 +6,32 @@ using Random = System.Random;
 
 public class RingScript : MonoBehaviour
 {
-
     private float RingLifeSpan = 600;
 
+    public GameObject player;
 	// Use this for initialization
 	void Start () {
 		
 		BoxCollider b = GetComponentInParent<BoxCollider>();
 		b.isTrigger = true;
+        player = GameObject.Find("transport_plane_green");
 		
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+        /*
 	    RingLifeSpan --;
 	    if (RingLifeSpan < 0)
 	    {
 	        Destroy(gameObject);
+	    }
+        */
+
+	    if (transform.position.z < player.transform.position.z - 200)
+	    {
+            gameObject.SetActive(false);
 	    }
 	}
 
@@ -34,7 +42,8 @@ public class RingScript : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-	    Destroy(gameObject);
+	    //Destroy(gameObject);
+        gameObject.SetActive(false);
 	    Player p = other.gameObject.GetComponent<Player>();
         p.Increase_Score();
 	}

@@ -77,7 +77,7 @@ public class IslandScript : MonoBehaviour
         }
         
 
-        GameObject island = GameObjectPool.current.GetPooledGameObject(islandChoice + "(Clone)");
+        GameObject island = GameObjectPool.current.GetPooledIsland(islandChoice + "(Clone)");
         //if(island == null) return;
         
         Debug.Log("Extracted : " + island.name);

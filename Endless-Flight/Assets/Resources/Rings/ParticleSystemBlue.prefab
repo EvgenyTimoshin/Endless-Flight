@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4617348882068698}
   - component: {fileID: 198972422637908524}
   - component: {fileID: 199864251351962040}
-  - component: {fileID: 114965397463817698}
   - component: {fileID: 65202296174383140}
+  - component: {fileID: 114648788606400042}
   m_Layer: 0
   m_Name: ParticleSystemBlue
   m_TagString: Untagged
@@ -53,9 +53,9 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 500, y: 500, z: 500}
-  m_Center: {x: 230, y: 160, z: 200}
---- !u!114 &114965397463817698
+  m_Size: {x: 13, y: 13, z: 13}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114648788606400042
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 //using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class Player : MonoBehaviour
     float boostHorizontalSpeed = 0;
     private bool FirstPersonView = false;
     private float screenCenterX;
+    private float score = 0;
+    public Text scoreText;
 
 
     // Use this for initialization
@@ -41,6 +44,8 @@ public class Player : MonoBehaviour
 
 
     }
+
+    
 
     // Update is called once per frame
     void Update()
@@ -162,6 +167,12 @@ public class Player : MonoBehaviour
             Mathf.LerpAngle(currentAngle.z, 50, Time.deltaTime));
 
         currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, -maxHorizontalSpeed + -bonusHorizontalSpeed + -boostHorizontalSpeed, Time.deltaTime);
+    }
+
+    public void Increase_Score()
+    {
+        score++;
+        scoreText.text = "Score :  " + score;
     }
 }
 

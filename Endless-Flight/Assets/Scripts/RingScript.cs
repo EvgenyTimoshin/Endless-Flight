@@ -4,8 +4,10 @@ using UnityEngine;
 using NUnit.Framework.Constraints;
 using Random = System.Random;
 
-public class RingScript : MonoBehaviour {
-	
+public class RingScript : MonoBehaviour
+{
+
+    private float RingLifeSpan = 180;
 
 	// Use this for initialization
 	void Start () {
@@ -16,8 +18,13 @@ public class RingScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+	{
+	    RingLifeSpan --;
+	    if (RingLifeSpan < 0)
+	    {
+	        Destroy(gameObject);
+	    }
 	}
 
 	void OnTriggerExit(Collider other)
@@ -28,7 +35,8 @@ public class RingScript : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 	    Destroy(gameObject);
-	    //other.increaseScore();
+	    Player p = other.gameObject.GetComponent<Player>();
+        p.Increase_Score();
 	}
 
 	

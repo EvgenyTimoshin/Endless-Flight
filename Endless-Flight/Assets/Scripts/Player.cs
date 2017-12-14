@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     private Camera mainCamera;
     Rigidbody rb;
     const float minimumSpeed = -1500;
-    const float maxHorizontalSpeed = 600;
+    const float maxHorizontalSpeed = 350;
     float currentHorizontalSpeed = 0;
     private float currentRotation = 0;
     private Vector3 currentAngle;
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        rb.AddRelativeForce(Vector3.forward * 5 * Time.deltaTime * 70);
+        rb.AddRelativeForce(Vector3.forward * 2 * Time.deltaTime * 70);
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -77,20 +77,7 @@ public class Player : MonoBehaviour
                 Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime * 2));
         }
 
-        if (Input.GetKey((KeyCode.C)))
-        {
-            if (FirstPersonView)
-            {
-                mainCamera.transform.localPosition = new Vector3(0, 16.4f, -45.5f);
-                FirstPersonView = false;
-            }
-            else
-            {
-                mainCamera.transform.localPosition = new Vector3(0, 2.1f, 3.5f);
-                FirstPersonView = true;
-            }
-
-        }
+        
 
         if (transform.position.x < 150)
         {
@@ -154,7 +141,7 @@ public class Player : MonoBehaviour
         currentAngle = new Vector3(
             Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
             Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
-            Mathf.LerpAngle(currentAngle.z, -50, Time.deltaTime));
+            Mathf.LerpAngle(currentAngle.z, -70, Time.deltaTime));
 
         currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, maxHorizontalSpeed + bonusHorizontalSpeed + boostHorizontalSpeed, Time.deltaTime);
     }
@@ -164,7 +151,7 @@ public class Player : MonoBehaviour
         currentAngle = new Vector3(
             Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
             Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
-            Mathf.LerpAngle(currentAngle.z, 50, Time.deltaTime));
+            Mathf.LerpAngle(currentAngle.z, 70, Time.deltaTime));
 
         currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, -maxHorizontalSpeed + -bonusHorizontalSpeed + -boostHorizontalSpeed, Time.deltaTime);
     }

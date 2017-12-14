@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4895021099589250}
+  - component: {fileID: 114289655784358186}
   m_Layer: 0
   m_Name: Island1
   m_TagString: Untagged
@@ -2403,6 +2404,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1372861230351408}
   m_Mesh: {fileID: 4300000, guid: f4fa3708679518a498db80eadffd9118, type: 3}
+--- !u!114 &114289655784358186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1012013113776996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db6c06d817cc8a642b336e2d0251197f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!154 &154731803431141954
 TerrainCollider:
   m_ObjectHideFlags: 1

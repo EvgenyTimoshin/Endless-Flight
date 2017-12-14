@@ -59,6 +59,11 @@ public class IslandScript : MonoBehaviour
         int choice = rnd.Next(1, 5);
         String islandChoice = "Island2";
 
+        if (choice == 0)
+        {
+            islandChoice = "island1";
+        }
+
         if (choice == 1)
         {
             islandChoice = "Island2";

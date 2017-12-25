@@ -35,12 +35,16 @@ public class Player : MonoBehaviour
         Screen.orientation = ScreenOrientation.LandscapeLeft;
 
         //Animator anim = GetComponent<Animator>();
-
+        //anim.enabled = true;
         //anim.enabled = true;
         //anim["NewTakeOff"].wrapMode = WrapMode.Once;
         //anim.Play("NewTakeOff");
         //anim.enabled = false;
         // InvokeRepeating("spawnTerrain", 0, 0.5f);
+
+        //anim.enabled = false;
+        //Debug.Log(GetComponent<Animation>().Play());
+       // GetComponent<Animator>().Play("NewTakeOff");
 
 
     }
@@ -51,7 +55,8 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        rb.AddRelativeForce(Vector3.forward * 2 * Time.deltaTime * 70);
+        rb.AddRelativeForce(Vector3.forward  * Time.deltaTime * 80);
+        //Debug.Log(rb.velocity);
 
         if (Input.GetKey(KeyCode.A))
         {

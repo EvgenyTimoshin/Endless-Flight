@@ -7,7 +7,7 @@ using Random = System.Random;
 
 public class IslandScript : MonoBehaviour
 {
-
+    private float NextIslandDistance = 3500;
     void Start()
     {
         BoxCollider b = GetComponentInParent<BoxCollider>();
@@ -86,8 +86,9 @@ public class IslandScript : MonoBehaviour
         //if(island == null) return;
         
         Debug.Log("Extracted : " + island.name);
-        island.transform.position = new Vector3(0, 0, transform.position.z + 3200);
+        island.transform.position = new Vector3(0, 0, transform.position.z + NextIslandDistance);
         island.SetActive(true);
+        NextIslandDistance += 200;
 
     }
 }

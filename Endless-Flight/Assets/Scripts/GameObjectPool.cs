@@ -8,8 +8,9 @@ using Object = UnityEngine.Object;
 public class GameObjectPool : MonoBehaviour
 {
     public static GameObjectPool current;
-    List<GameObject> islandPool;
+    private List<GameObject> islandPool;
     private List<GameObject> ringPool;
+    private List<GameObject> shipPool;
 
     void Awake()
     {
@@ -21,6 +22,7 @@ public class GameObjectPool : MonoBehaviour
 	{
         islandPool = new List<GameObject>();
 	    ringPool = new List<GameObject>();
+	    shipPool = new List<GameObject>();
         
 
         ///Pool islands
@@ -33,7 +35,6 @@ public class GameObjectPool : MonoBehaviour
 	            GameObject obj = (GameObject) list[i];
 	            obj.SetActive(false);
 	            islandPool.Add(Instantiate(obj));
-	            Debug.Log(list[i].name);
 	        }
 	    }
 
@@ -52,9 +53,21 @@ public class GameObjectPool : MonoBehaviour
             }
 	    }
 
-        Debug.Log("Size of Ring Pool : " + ringPool.Count);
+        //Pool ships
+	    list = Resources.LoadAll("Ships");
 
-	}
+	    for (int i = 0; i < list.Length; i++)
+	    {
+	        for (int j = 0; j < 3; j++)
+	        {
+	            GameObject obj = (GameObject)list[i];
+	            obj.SetActive(false);
+	            shipPool.Add(Instantiate(obj));
+	            //Debug.Log(list[i].name);
+	        }
+	    }
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -79,9 +92,7 @@ public class GameObjectPool : MonoBehaviour
     public GameObject GetPooledRing(string desiredObj)
     {
         foreach (var ob in ringPool)
-        {
-            Debug.Log("Ring in pool loop" + ob.name);
-            
+        {   
             if (desiredObj == ob.name && !ob.activeInHierarchy)
             {
                 return ob;
@@ -90,5 +101,13 @@ public class GameObjectPool : MonoBehaviour
         }
 
         return null;
+    }
+
+    public GameObject GetPooledShip(int index)
+    {
+        Debug.Log("Trying to spawn : " + shipPool[index] + "Out of "  + shipPool.Count );
+        Debug.Log(index);
+
+        return shipPool[index];
     }
 }

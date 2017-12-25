@@ -6,7 +6,6 @@ using Random = System.Random;
 
 public class RingScript : MonoBehaviour
 {
-    private float RingLifeSpan = 600;
 
     public GameObject player;
 	// Use this for initialization

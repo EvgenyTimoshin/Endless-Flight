@@ -23,12 +23,12 @@ GameObject:
   - component: {fileID: 114294187826199548}
   - component: {fileID: 54274783496088578}
   m_Layer: 0
-  m_Name: AircraftCarrier (1)
+  m_Name: AircraftCarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1442457494662916
 GameObject:
   m_ObjectHideFlags: 1
@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1068734517229688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2598.2053, y: 147.96, z: -159.9482}
+  m_LocalPosition: {x: 2598.2053, y: 12, z: -159.9482}
   m_LocalScale: {x: 40, y: 40, z: 40}
   m_Children:
   - {fileID: 4864041288576162}

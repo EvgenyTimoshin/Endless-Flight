@@ -39,6 +39,7 @@ public class MainCamera : MonoBehaviour
 	    {
 	        transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.9f, Player.transform.position.z + 3.2f);
 	        transform.rotation = Player.transform.rotation;
+
 	    }
 	}
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SkyBoxConfig : MonoBehaviour {
 
+	public float skyBoxRotSpeed = 1f;
 	// Use this for initialization
 	void Start () {
 		
@@ -12,6 +13,6 @@ public class SkyBoxConfig : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-	    RenderSettings.skybox.SetFloat("_Rotation", Time.time * 0.5f);
+		RenderSettings.skybox.SetFloat("_Rotation", Time.time * skyBoxRotSpeed);
 	}
 }

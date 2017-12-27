@@ -57,7 +57,7 @@ Material:
     m_Floats:
     - _FresnelScale: 0.75
     - _GerstnerIntensity: 1
-    - _ReflDistort: 0.042
+    - _ReflDistort: 0.272
     - _RefrDistort: 0
     - _Shininess: 200
     - _WaveScale: 0.02

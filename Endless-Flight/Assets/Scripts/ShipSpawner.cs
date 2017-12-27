@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShipSpawner : MonoBehaviour
 {
 
-    private float shipPosOffset = 600;
+    private float shipPosOffset = 2000;
 	// Use this for initialization
 	void Start () {
 		InvokeRepeating("SpawnRandomShip", 2f, 15.0f);
@@ -23,8 +23,15 @@ public class ShipSpawner : MonoBehaviour
         int rand = rnd.Next(0, 15);
         GameObject ship = GameObjectPool.current.GetPooledShip(rand);
         ship.SetActive(true);
-        ship.transform.position = new Vector3(rand,ship.transform.position.y,transform.position.z + shipPosOffset);
-        //ship.transform.rotation = new Quaternion(0, rnd.Next(0,90), 0,0);
+		ship.transform.position = new Vector3(rnd.Next(-300,700),ship.transform.position.y,transform.position.z + shipPosOffset);
+		rand = rnd.Next (0, 2);
+		float degree;
+		if (rand == 0)
+			degree = 90;
+		else
+			degree = 0;
+			
+        //ship.transform.rotation = new Quaternion(0, degree, 0,0);
         Debug.Log("Ship Spawned");
     }
 }

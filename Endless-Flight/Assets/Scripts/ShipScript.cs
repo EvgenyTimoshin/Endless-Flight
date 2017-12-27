@@ -16,7 +16,7 @@ public class ShipScript : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-	    rb.AddRelativeForce(Vector3.forward * Time.deltaTime * -70);
+	    rb.AddRelativeForce(Vector3.forward * Time.deltaTime * -50);
         
 	    if (transform.position.z < Player.transform.position.z - 200)
 	    {

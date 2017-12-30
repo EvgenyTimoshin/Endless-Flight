@@ -10,7 +10,9 @@ public class LensFlareController : MonoBehaviour {
 		
 	}
 	
-	// Update is called once per frame
+	/// <summary>
+    /// Moves the lens sun gradually along screen
+    /// </summary>
 	void Update () {
 		transform.position = new Vector3 (transform.position.x+SunSpeed,transform.position.y,transform.position.z);
 	}

@@ -9,7 +9,9 @@ public class Propellor : MonoBehaviour {
 		
 	}
 	
-	// Update is called once per frame
+	/// <summary>
+    /// Called every frame, rotates the propellor
+    /// </summary>
 	void Update () {
 	    transform.Rotate(Vector3.right * 40);
     }

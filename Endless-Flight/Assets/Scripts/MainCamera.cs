@@ -8,13 +8,17 @@ public class MainCamera : MonoBehaviour
     public GameObject Player;
     public int View;
 
-    // Use this for initialization
+    /// <summary>
+    /// Used to initialise curretn class
+    /// </summary>
     void Start ()
     {
         View = 0;
     }
 	
-	// Update is called once per frame
+	/// <summary>
+    /// Called once per frame
+    /// </summary>
 	void Update () {
 
 	    if (Input.GetKey(KeyCode.E))
@@ -30,6 +34,7 @@ public class MainCamera : MonoBehaviour
             transform.eulerAngles = new Vector3(5,0,0);
 	    }
 
+        /* MAYBE REMOVE (UNDER CONSIDERATION)
 	    if (View == 1)
 	    {
 	        transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 10, Player.transform.position.z-30);
@@ -41,8 +46,13 @@ public class MainCamera : MonoBehaviour
 	        transform.rotation = Player.transform.rotation;
 
 	    }
+        */
 	}
 
+    /// <summary>
+    /// Changes the camera view
+    /// </summary>
+    /// <returns></returns>
     private int ChangeCameraView()
     {
         if (View == 0)

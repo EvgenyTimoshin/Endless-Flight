@@ -8,53 +8,43 @@ using Random = System.Random;
 public class IslandScript : MonoBehaviour
 {
     private float NextIslandDistance = 3500;
+
+    /// <summary>
+    /// Sets up current class
+    /// </summary>
     void Start()
     {
         BoxCollider b = GetComponentInParent<BoxCollider>();
         b.isTrigger = true;
     }
 
+    /// <summary>
+    /// Called when rigid body (player) exits the collider of current object
+    /// </summary>
+    /// <param name="other"></param>
     void OnTriggerExit(Collider other)
     {
-        //Destroy(gameObject);
         gameObject.SetActive(false);
 
         Spawn_Next_Island();
         
     }
 
+    /// <summary>
+    /// Called when rigid body enters collider of current object
+    /// </summary>
+    /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
     {
         
 
     }
 
+    /// <summary>
+    /// Spawns a random island further in the game world *****************needs changing
+    /// </summary>
     void Spawn_Next_Island()
     {
-        /*
-        Random rnd = new Random();
-        int choice = rnd.Next(1, 4);
-        String islandChoice = "Island/Island2";
-
-        if (choice == 1)
-        {
-            islandChoice = "Islands/Island2";
-        }
-        if (choice == 2)
-        {
-            islandChoice = "Islands/Island3";
-        }
-        if (choice == 3)
-        {
-            islandChoice = "Islands/Island4";
-        }
-        if (choice == 4)
-        {
-            islandChoice = "Islands/Island5";
-        }
-        Instantiate((Resources.Load(islandChoice)), new Vector3(0, 0, transform.position.z + 3200), new Quaternion(0, 0, 0, 0));
-        */
-        
         Random rnd = new Random();
         int choice = rnd.Next(1, 5);
         String islandChoice = "Island2";

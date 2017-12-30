@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// Main Player class that controls the behaviour of the player object
+/// </summary>
 public class Player : MonoBehaviour
 {
     private Camera mainCamera;
@@ -24,8 +28,12 @@ public class Player : MonoBehaviour
     private float score = 0;
     public Text scoreText;
 
+	public bool moving = false;
 
-    // Use this for initialization
+
+    /// <summary>
+    /// Initialises the class
+    /// </summary>
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -51,20 +59,19 @@ public class Player : MonoBehaviour
 
     
 
-    // Update is called once per frame
+    /// <summary>
+    /// Called every frame update of the game
+    /// </summary>
     void Update()
     {
-
-        rb.AddRelativeForce(Vector3.forward  * Time.deltaTime * 80);
-        //Debug.Log(rb.velocity);
-
+		if (moving)
+		{
+			rb.AddRelativeForce (Vector3.forward * Time.deltaTime * 100);
+		}
+        
         if (Input.GetKey(KeyCode.A))
         {
-            //transform.Rotate(0, 0, Time.deltaTime * 50);
-            //currentRotation = Mathf.Lerp(45,currentRotation, Time.deltaTime * 50 );
-
             moveLeft();
-
         }
 
         if (Input.GetKey(KeyCode.D))
@@ -75,14 +82,11 @@ public class Player : MonoBehaviour
         if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
             currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, 0, Time.deltaTime / 0.1f);
-            // currentRotation = Mathf.Lerp(0, rb.rotation.z, Time.deltaTime * 50);
             currentAngle = new Vector3(
                 Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
                 Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
                 Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime * 2));
         }
-
-        
 
         if (transform.position.x < 150)
         {
@@ -106,14 +110,7 @@ public class Player : MonoBehaviour
                 Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime * 2));
             Input.ResetInputAxes();
         }
-
-
-        rb.velocity = new Vector3(currentHorizontalSpeed, rb.velocity.y, rb.velocity.z);
-        //rb.rotation = new Quaternion(rb.rotation.x, rb.rotation.y, currentRotation, rb.rotation.w);
-        //rb.rotation.Set(rb.rotation.x, rb.rotation.y, 45, rb.rotation.w);
-        rb.transform.eulerAngles = currentAngle;
-
-        
+ 
         //Touchscreen Controls
 	    foreach (Touch touch in Input.touches)
 	    {
@@ -139,8 +136,13 @@ public class Player : MonoBehaviour
             moveRight();
         }
 
+        rb.velocity = new Vector3(currentHorizontalSpeed, rb.velocity.y, rb.velocity.z);
+        rb.transform.eulerAngles = currentAngle;
     }
 
+    /// <summary>
+    /// Controls behaviour of object moving to the right
+    /// </summary>
     void moveRight()
     {
         currentAngle = new Vector3(
@@ -151,6 +153,9 @@ public class Player : MonoBehaviour
         currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, maxHorizontalSpeed + bonusHorizontalSpeed + boostHorizontalSpeed, Time.deltaTime);
     }
 
+    /// <summary>
+    /// Controls behaviour of object moving to the left
+    /// </summary>
     void moveLeft()
     {
         currentAngle = new Vector3(
@@ -161,6 +166,9 @@ public class Player : MonoBehaviour
         currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, -maxHorizontalSpeed + -bonusHorizontalSpeed + -boostHorizontalSpeed, Time.deltaTime);
     }
 
+    /// <summary>
+    /// Called when object interacts with a score object
+    /// </summary>
     public void Increase_Score()
     {
         score++;
@@ -168,6 +176,15 @@ public class Player : MonoBehaviour
         AudioSource audio = GetComponent<AudioSource>();
         audio.Play();
     }
+
+    /// <summary>
+    /// Called to enable movement of plane
+    /// </summary>
+	public void EnableMovement()
+	{
+		moving = true;
+	}
+
 }
 
     

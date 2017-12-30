@@ -12,12 +12,17 @@ public class GameObjectPool : MonoBehaviour
     private List<GameObject> ringPool;
     private List<GameObject> shipPool;
 
+    /// <summary>
+    /// Called on awake of the scene, instantiates itself as a static class
+    /// </summary>
     void Awake()
     {
         current = this;
     }
 
-    // Use this for initialization
+    /// <summary>
+    /// Initialises the current class
+    /// </summary>
 	void Start ()
 	{
         islandPool = new List<GameObject>();
@@ -69,11 +74,11 @@ public class GameObjectPool : MonoBehaviour
 
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    /// <summary>
+    /// Called when an island is needed
+    /// </summary>
+    /// <param name="desiredObj"></param>
+    /// <returns>An island from the island pool</returns>
     public GameObject GetPooledIsland(string desiredObj)
     {
         foreach (var ob in islandPool)
@@ -89,6 +94,11 @@ public class GameObjectPool : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Called when a ring is needed
+    /// </summary>
+    /// <param name="desiredObj"></param>
+    /// <returns>A ring from the ring pool</returns>
     public GameObject GetPooledRing(string desiredObj)
     {
         foreach (var ob in ringPool)
@@ -103,6 +113,11 @@ public class GameObjectPool : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Called when a ship is needed
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns><see langword="abstract"/>ship from the ship pool</returns>
     public GameObject GetPooledShip(int index)
     {
         Debug.Log("Trying to spawn : " + shipPool[index] + "Out of "  + shipPool.Count );

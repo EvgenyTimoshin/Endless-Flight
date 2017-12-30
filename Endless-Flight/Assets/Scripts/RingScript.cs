@@ -8,7 +8,10 @@ public class RingScript : MonoBehaviour
 {
 
     public GameObject player;
-	// Use this for initialization
+	
+    /// <summary>
+    /// Initialises current class
+    /// </summary>
 	void Start () {
 		
 		BoxCollider b = GetComponentInParent<BoxCollider>();
@@ -17,7 +20,9 @@ public class RingScript : MonoBehaviour
 		
 	}
 	
-	// Update is called once per frame
+	/// <summary>
+    /// Called once per frame
+    /// </summary>
 	void Update ()
 	{
         /*
@@ -39,6 +44,10 @@ public class RingScript : MonoBehaviour
 
 	}
 
+    /// <summary>
+    /// Called when rigid body enters the current object, deletes the current ring and calls player to increase score
+    /// </summary>
+    /// <param name="other"></param>
 	void OnTriggerEnter(Collider other)
 	{
 	    //Destroy(gameObject);

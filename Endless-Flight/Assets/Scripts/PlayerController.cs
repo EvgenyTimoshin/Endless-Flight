@@ -161,8 +161,6 @@ public class PlayerController : MonoBehaviour
        currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, -maxHorizontalSpeed + -bonusHorizontalSpeed + -boostHorizontalSpeed, Time.deltaTime);
     }
 
-  
-
     /// <summary>
     /// Called to enable movement of plane
     /// </summary>
@@ -172,6 +170,12 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector3(0, 0, 20);
         moving = true;
 	}
+
+    public void TakeOffAnim()
+    {
+        Animation anim = GetComponent<Animation>();
+        anim.Play("TakeOff");
+    }
 
 }
 

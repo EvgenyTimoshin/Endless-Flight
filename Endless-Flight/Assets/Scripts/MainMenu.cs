@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
-	/// <summary>
+    /// <summary>
     /// 
     /// </summary>
-	void Start () {
+    void Start () {
 		
 	}
 

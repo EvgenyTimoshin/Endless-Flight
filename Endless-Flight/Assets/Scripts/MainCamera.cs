@@ -6,27 +6,26 @@ public class MainCamera : MonoBehaviour
 {
 
     public GameObject Player;
-    public int View;
+    public bool gameStarted = false;
+    public bool cameraLockToPlayer = false;
+    private Vector3 currentAngle;
 
     /// <summary>
     /// Used to initialise curretn class
     /// </summary>
     void Start ()
     {
-        View = 0;
+        currentAngle = transform.eulerAngles;
     }
 	
 	/// <summary>
     /// Called once per frame
     /// </summary>
-	void Update () {
+	void Update () { 
 
-	    if (Input.GetKey(KeyCode.E))
-	    {
-	        View = ChangeCameraView();
-	    }
+        
 
-	    if (View == 0)
+	    if (cameraLockToPlayer)
 	    {
 	        transform.position =
 	            new Vector3(Mathf.Lerp(transform.position.x, Player.transform.position.x, Time.deltaTime * 5),
@@ -34,36 +33,39 @@ public class MainCamera : MonoBehaviour
             transform.eulerAngles = new Vector3(5,0,0);
 	    }
 
-        /* MAYBE REMOVE (UNDER CONSIDERATION)
-	    if (View == 1)
-	    {
-	        transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 10, Player.transform.position.z-30);
-	    }
-
-	    if (View == 2)
-	    {
-	        transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 1.9f, Player.transform.position.z + 3.2f);
-	        transform.rotation = Player.transform.rotation;
-
-	    }
-        */
 	}
 
-    /// <summary>
-    /// Changes the camera view
-    /// </summary>
-    /// <returns></returns>
-    private int ChangeCameraView()
+    void LateUpdate()
     {
-        if (View == 0)
+        if (gameStarted)
         {
-            return 1;
+            LerpCameraToGameStart();
         }
-        if (View == 1)
-        {
-            return 2;
-        }
+    }
 
-        return 0;
+    public void StartGame()
+    {
+        gameStarted = true;
+    }
+
+    private void LerpCameraToGameStart()
+    {
+        transform.position = new Vector3(Mathf.Lerp(transform.position.x, Player.transform.position.x, Time.deltaTime/1.5f),
+                Mathf.Lerp(transform.position.y, Player.transform.position.y + 20, Time.deltaTime/1.5f),
+                Mathf.Lerp(transform.position.z, Player.transform.position.z - 80, Time.deltaTime/1.5f));
+
+        currentAngle = new Vector3(
+            Mathf.LerpAngle(currentAngle.x, 5, Time.deltaTime/1.5f),
+            Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime/1.5f),
+            Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime));
+
+        transform.eulerAngles = currentAngle;
+
+        if (transform.position.x > Player.transform.position.x - 0.5f)
+        {
+            gameStarted = false;
+            cameraLockToPlayer = true;
+            GameStateManager.current.LoadAllGameComponents();
+        }
     }
 }

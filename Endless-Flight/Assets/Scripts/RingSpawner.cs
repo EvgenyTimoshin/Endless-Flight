@@ -114,8 +114,6 @@ public class RingSpawner : MonoBehaviour
             rings[i] = ring;
         }
 
-        
-
         int x = rnd.Next(170,230);
 
         rings[0].transform.position = new Vector3(x + 40, RingPosY, transform.position.z + frontOffset);

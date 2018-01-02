@@ -33,3 +33,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Endless-Flight/.vs/Endless-Flight/v15/Server/sqlite3/db.lock
+Endless-Flight/.vs/Endless-Flight/v15/Server/sqlite3/storage.ide
+Endless-Flight/.vs/Endless-Flight/v15/Server/sqlite3/storage.ide-shm
+Endless-Flight/.vs/Endless-Flight/v15/Server/sqlite3/storage.ide-wal
+Endless-Flight/Assets/UnityVS.meta
+Endless-Flight/Assets/UnityVS/Editor.meta

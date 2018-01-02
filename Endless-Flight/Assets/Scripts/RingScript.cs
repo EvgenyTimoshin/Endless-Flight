@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using NUnit.Framework.Constraints;
 using Random = System.Random;
 
 public class RingScript : MonoBehaviour
@@ -25,14 +24,6 @@ public class RingScript : MonoBehaviour
     /// </summary>
 	void Update ()
 	{
-        /*
-	    RingLifeSpan --;
-	    if (RingLifeSpan < 0)
-	    {
-	        Destroy(gameObject);
-	    }
-        */
-
 	    if (transform.position.z < player.transform.position.z - 200)
 	    {
             gameObject.SetActive(false);
@@ -50,10 +41,9 @@ public class RingScript : MonoBehaviour
     /// <param name="other"></param>
 	void OnTriggerEnter(Collider other)
 	{
-	    //Destroy(gameObject);
         gameObject.SetActive(false);
-	    Player p = other.gameObject.GetComponent<Player>();
-        p.Increase_Score();
+	    //PlayerStats p = other.gameObject.GetComponent<PlayerStats>();
+
 	}
 
 	

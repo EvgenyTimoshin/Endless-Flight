@@ -3,33 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 //using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 /// <summary>
 /// Main Player class that controls the behaviour of the player object
 /// </summary>
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     private Camera mainCamera;
     Rigidbody rb;
-    const float minimumSpeed = -1500;
-    const float maxHorizontalSpeed = 350;
+    public float forwardVelocity = 100;
+    public float minimumSpeed = -1500;
+    public float maxHorizontalSpeed = 250;
     float currentHorizontalSpeed = 0;
     private float currentRotation = 0;
     private Vector3 currentAngle;
-
+    public float leftBorderLimitX = 150;
+    public float rightBorderLimitX = 350;
     //float maxHorizontalSpeed = 5000;
-    float bonusHorizontalSpeed = 0;
+    public float bonusHorizontalSpeed = 0;
+    public float boostHorizontalSpeed = 0;
 
-    float boostHorizontalSpeed = 0;
-    private bool FirstPersonView = false;
     private float screenCenterX;
-    private float score = 0;
-    public Text scoreText;
 
 	public bool moving = false;
-
 
     /// <summary>
     /// Initialises the class
@@ -37,37 +34,25 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
         currentAngle = rb.transform.eulerAngles;
         screenCenterX = Screen.width * 0.5f;
         mainCamera = Camera.main;
         Screen.orientation = ScreenOrientation.LandscapeLeft;
-
-        //Animator anim = GetComponent<Animator>();
-        //anim.enabled = true;
-        //anim.enabled = true;
-        //anim["NewTakeOff"].wrapMode = WrapMode.Once;
-        //anim.Play("NewTakeOff");
-        //anim.enabled = false;
-        // InvokeRepeating("spawnTerrain", 0, 0.5f);
-
-        //anim.enabled = false;
-        //Debug.Log(GetComponent<Animation>().Play());
-       // GetComponent<Animator>().Play("NewTakeOff");
-
-
     }
 
-    
+
+    void DebugCode()
+    {
+        //Debug.Log(rb.velocity);
+    }
 
     /// <summary>
     /// Called every frame update of the game
     /// </summary>
     void Update()
     {
-		if (moving)
-		{
-			rb.AddRelativeForce (Vector3.forward * Time.deltaTime * 100);
-		}
+        DebugCode();
         
         if (Input.GetKey(KeyCode.A))
         {
@@ -88,9 +73,9 @@ public class Player : MonoBehaviour
                 Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime * 2));
         }
 
-        if (transform.position.x < 150)
+        if (transform.position.x < leftBorderLimitX)
         {
-            transform.position = new Vector3(150, transform.position.y, transform.position.z);
+            transform.position = new Vector3(leftBorderLimitX + 1, transform.position.y, transform.position.z);
             currentHorizontalSpeed = 0;
             currentAngle = new Vector3(
                 Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
@@ -100,9 +85,9 @@ public class Player : MonoBehaviour
 
         }
 
-        if (transform.position.x > 350)
+        if (transform.position.x > rightBorderLimitX)
         {
-            transform.position = new Vector3(350, transform.position.y, transform.position.z);
+            transform.position = new Vector3(rightBorderLimitX - 1, transform.position.y, transform.position.z);
             currentHorizontalSpeed = 0;
             currentAngle = new Vector3(
                 Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
@@ -126,6 +111,7 @@ public class Player : MonoBehaviour
             
 	    }
 
+        
         if (Input.acceleration.x < 0.19)
         {
             moveLeft();
@@ -135,9 +121,20 @@ public class Player : MonoBehaviour
         {
             moveRight();
         }
+    }
 
-        rb.velocity = new Vector3(currentHorizontalSpeed, rb.velocity.y, rb.velocity.z);
-        rb.transform.eulerAngles = currentAngle;
+    /// <summary>
+    /// Called Every Physics step
+    /// </summary>
+    void FixedUpdate()
+    {
+        if (moving)
+        {
+            rb.AddRelativeForce(Vector3.forward * Time.deltaTime * forwardVelocity);
+
+            rb.velocity = new Vector3(currentHorizontalSpeed, rb.velocity.y, rb.velocity.z);
+            rb.transform.eulerAngles = currentAngle;
+        }
     }
 
     /// <summary>
@@ -149,7 +146,6 @@ public class Player : MonoBehaviour
             Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
             Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
             Mathf.LerpAngle(currentAngle.z, -70, Time.deltaTime));
-
         currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, maxHorizontalSpeed + bonusHorizontalSpeed + boostHorizontalSpeed, Time.deltaTime);
     }
 
@@ -162,27 +158,19 @@ public class Player : MonoBehaviour
             Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
             Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
             Mathf.LerpAngle(currentAngle.z, 70, Time.deltaTime));
-
-        currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, -maxHorizontalSpeed + -bonusHorizontalSpeed + -boostHorizontalSpeed, Time.deltaTime);
+       currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, -maxHorizontalSpeed + -bonusHorizontalSpeed + -boostHorizontalSpeed, Time.deltaTime);
     }
 
-    /// <summary>
-    /// Called when object interacts with a score object
-    /// </summary>
-    public void Increase_Score()
-    {
-        score++;
-        scoreText.text = "Score :  " + score;
-        AudioSource audio = GetComponent<AudioSource>();
-        audio.Play();
-    }
+  
 
     /// <summary>
     /// Called to enable movement of plane
     /// </summary>
 	public void EnableMovement()
 	{
-		moving = true;
+        rb.isKinematic = false;
+        rb.velocity = new Vector3(0, 0, 20);
+        moving = true;
 	}
 
 }

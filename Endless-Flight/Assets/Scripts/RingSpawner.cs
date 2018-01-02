@@ -9,7 +9,7 @@ public class RingSpawner : MonoBehaviour
     private string ringColour;
     private Random rnd = new Random();
     public float frontOffset = 250;
-    private float RingPosY = 95;
+    public float RingPosY = 85;
 
     /// <summary>
     /// Initialises current class

@@ -9,6 +9,7 @@ public class MainCamera : MonoBehaviour
     public bool gameStarted = false;
     public bool cameraLockToPlayer = false;
     private Vector3 currentAngle;
+    public int cameraType = 0;
 
     /// <summary>
     /// Used to initialise curretn class
@@ -27,10 +28,26 @@ public class MainCamera : MonoBehaviour
 
 	    if (cameraLockToPlayer)
 	    {
-	        transform.position =
-	            new Vector3(Mathf.Lerp(transform.position.x, Player.transform.position.x, Time.deltaTime * 5),
-	                Player.transform.position.y + 20, Player.transform.position.z - 80);
-            transform.eulerAngles = new Vector3(5,0,0);
+	        if (cameraType == 0)
+	        {
+                transform.position =
+                    new Vector3(Mathf.Lerp(transform.position.x, Player.transform.position.x, Time.deltaTime * 5),
+                        Mathf.Lerp(transform.position.y,Player.transform.position.y + 20,Time.deltaTime + 5), Player.transform.position.z - 80);
+                transform.eulerAngles = new Vector3(5,0,0);
+                
+	        }
+	        else
+	        {
+	            transform.position =
+	                new Vector3(250,
+	                    90, Player.transform.position.z - 120);
+	            transform.eulerAngles = new Vector3(0, 0, 0);
+	        }
+	    }
+
+	    if (Input.GetKey(KeyCode.E))
+	    {
+	        switchCamera();
 	    }
 
 	}
@@ -40,6 +57,18 @@ public class MainCamera : MonoBehaviour
         if (gameStarted)
         {
             LerpCameraToGameStart();
+        }
+    }
+
+    void switchCamera()
+    {
+        if (cameraType == 0)
+        {
+            cameraType = 1;
+        }
+        else
+        {
+            cameraType = 0;
         }
     }
 

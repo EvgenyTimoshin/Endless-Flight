@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.102
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1831115027}
-  m_IndirectSpecularColor: {r: 0.29566795, g: 0.138901, b: 0.07844741, a: 0.102}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0.102}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3799,7 +3799,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -79.2, y: -61.1}
+  m_AnchoredPosition: {x: -79.200195, y: -61.100098}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &989910953
@@ -5563,7 +5563,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 20
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!111 &1410321626
 Animation:
@@ -5722,8 +5722,11 @@ MonoBehaviour:
   forwardVelocity: 250
   minimumSpeed: -1500
   maxHorizontalSpeed: 300
+  maxVerticalSpeed: 250
   leftBorderLimitX: 150
   rightBorderLimitX: 350
+  verticalUpperLimit: 150
+  verticalLowerLimit: 40
   bonusHorizontalSpeed: 0
   boostHorizontalSpeed: 0
   moving: 0
@@ -7700,6 +7703,7 @@ MonoBehaviour:
   Player: {fileID: 1410321624}
   gameStarted: 0
   cameraLockToPlayer: 0
+  cameraType: 0
 --- !u!1001 &1835745340
 Prefab:
   m_ObjectHideFlags: 0
@@ -8634,7 +8638,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 195.79999, y: -58.80005}
+  m_AnchoredPosition: {x: 195.7998, y: -58.80005}
   m_SizeDelta: {x: 361.1, y: 91.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2129551759

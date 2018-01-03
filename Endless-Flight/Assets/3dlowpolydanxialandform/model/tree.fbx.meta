@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c0896ff20c92041aa95f7526d367239a
+guid: 7cf2c5614d0c0485d8825568b3ddc8e9
 timeCreated: 18446744011573954816
 ModelImporter:
   serializedVersion: 22
@@ -8,20 +8,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: hotairballoon
-    7400000: hotairballoon|cloud1Action
-    7400002: hotairballoon|cloud2Action
-    7400004: hotairballoon|hotairballoon2Action
-    7400006: hotairballoon|hotairballoon3.001Action
-    7400008: hotairballoon|hotairballoon3Action
-    7400010: hotairballoon|hotairballoonAction
-    7400012: hotairballoon|hotairballoonAction.001
-    7400014: hotairballoon|hotairballoonAction.002
-    7400016: hotairballoon|hotairballoonAction.003
-    7400018: hotairballoon|hotairballoonAction.004
-    7400020: hotairballoon|hotairballoonAction.005
-    7400022: hotairballoon|hotairballoonAction.006
-    7400024: hotairballoon|Lamp.001Action
+    4300000: Cone.001
     9500000: //RootNode
   externalObjects: {}
   materials:

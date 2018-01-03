@@ -6,8 +6,30 @@ using UnityEngine;
 public class GameStateManager : MonoBehaviour {
 
     public static GameStateManager current;
-    //public Camera mainCamera;
 
+    /// <summary>
+    /// Event used to call methods on game start
+    /// </summary>
+    public delegate void GameStart();
+    public static event GameStart startGame;
+
+    /// <summary>
+    /// Event used to pause the game
+    /// </summary>
+    public delegate void GamePause();
+    public static event GamePause pauseGame;
+
+    /// <summary>
+    /// Event used to pause the game
+    /// </summary>
+    public delegate void GameResume();
+    public static event GameResume resumeGame;
+
+    /// <summary>
+    /// Event used to load all components neccessary when game starts
+    /// </summary>
+    public delegate void ComponentsLoad();
+    public static event ComponentsLoad loadGameStartComponents;
 
     void Awake()
     {
@@ -24,17 +46,47 @@ public class GameStateManager : MonoBehaviour {
 		
 	}
 
+    /// <summary>
+    /// Called when the game is started (From Main Menu UI StartGame button)
+    /// </summary>
     public void StartGame()
     {
-        MainCamera m = Camera.main.GetComponent<MainCamera>();
-        m.StartGame();
+        if (startGame != null)
+        {
+            startGame();
+        }
     }
 
-    public void LoadAllGameComponents()
+    /// <summary>
+    /// Called when the game is paused (from HUD pause button)
+    /// </summary>
+    public void PauseGame()
     {
-        GameObject go = GameObject.Find("transport_plane_green");
-        go.GetComponent<PlayerController>().TakeOffAnim();
-        go = GameObject.Find("HUD");
-        go.GetComponent<Canvas>().enabled = true;
+        if (pauseGame != null)
+        {
+            pauseGame();
+        }
+    }
+
+    /// <summary>
+    /// Called when the game is resumed (from HUD-pause menu resume button)
+    /// </summary>
+    public void ResumeGame()
+    {
+        if(resumeGame != null)
+        {
+            resumeGame();
+        }
+    }
+
+    /// <summary>
+    /// Loads enabled relevant components and calls event across classes to load components required for game start
+    /// </summary>
+    public void LoadAllStartGameComponents()
+    {
+        if (loadGameStartComponents != null)
+        {
+            loadGameStartComponents();
+        }
     }
 }

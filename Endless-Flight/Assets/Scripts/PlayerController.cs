@@ -35,6 +35,28 @@ public class PlayerController : MonoBehaviour
 
 	public bool moving = false;
 
+    private Vector3 storedVelocity = new Vector3(0, 0, 20);
+
+    /// <summary>
+    /// Called when this script is enabled
+    /// </summary>
+    private void OnEnable()
+    {
+        GameStateManager.loadGameStartComponents += TakeOffAnim;
+        GameStateManager.pauseGame += DisableMovement;
+        GameStateManager.resumeGame += EnableMovement;
+    }
+
+    /// <summary>
+    /// Called when this script is disabled
+    /// </summary>
+    private void OnDisable()
+    {
+        GameStateManager.loadGameStartComponents -= TakeOffAnim;
+        GameStateManager.pauseGame -= DisableMovement;
+        GameStateManager.resumeGame -= EnableMovement;
+    }
+
     /// <summary>
     /// Initialises the class
     /// </summary>
@@ -48,7 +70,9 @@ public class PlayerController : MonoBehaviour
         Screen.orientation = ScreenOrientation.LandscapeLeft;
     }
 
-
+    /// <summary>
+    /// Used to log information in console
+    /// </summary>
     void DebugCode()
     {
         //Debug.Log(rb.velocity);
@@ -60,76 +84,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         DebugCode();
+
         if (moving)
         {
-            if (Input.GetKey(KeyCode.A))
-            {
-                moveLeft();
-            }
+            CheckPlayerBorders();
 
-            if (Input.GetKey(KeyCode.D))
-            {
-                moveRight();
-            }
-
-            if (Input.GetKey(KeyCode.W))
-            {
-                moveUp();
-            }
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                moveDown();
-            }
-
-            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-            {
-                currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, 0, Time.deltaTime / 0.1f);
-                currentAngle = new Vector3(
-                    Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
-                    Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
-                    Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime * 2));
-            }
-
-            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-            {
-                currentVerticalSpeed = Mathf.Lerp(currentVerticalSpeed, 0, Time.deltaTime / 0.1f);
-            }
-
-            if (transform.position.y > verticalUpperLimit)
-            {
-                transform.position = new Vector3(transform.position.x, verticalUpperLimit - 1, transform.position.z);
-                currentVerticalSpeed = 0;
-            }
-
-            if (transform.position.y < verticalLowerLimit)
-            {
-                transform.position = new Vector3(transform.position.x, verticalLowerLimit + 1, transform.position.z);
-                currentVerticalSpeed = 0;
-            }
-
-            if (transform.position.x < leftBorderLimitX)
-            {
-                transform.position = new Vector3(leftBorderLimitX + 1, transform.position.y, transform.position.z);
-                currentHorizontalSpeed = 0;
-                currentAngle = new Vector3(
-                    Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
-                    Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
-                    Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime * 2));
-                Input.ResetInputAxes();
-
-            }
-
-            if (transform.position.x > rightBorderLimitX)
-            {
-                transform.position = new Vector3(rightBorderLimitX - 1, transform.position.y, transform.position.z);
-                currentHorizontalSpeed = 0;
-                currentAngle = new Vector3(
-                    Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
-                    Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
-                    Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime * 2));
-                Input.ResetInputAxes();
-            }
+            KeyBoardInput();
 
             //Touchscreen Controls
             foreach (Touch touch in Input.touches)
@@ -146,7 +106,7 @@ public class PlayerController : MonoBehaviour
 
             }
 
-
+            //Accelerometer controls
             if (Input.acceleration.x < 0.19)
             {
                 moveLeft();
@@ -207,15 +167,105 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Called to enable movement of plane
+    ///Contains code for checking if player is in the game movement bounds 
+    /// </summary>
+    private void CheckPlayerBorders()
+    {
+        if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+        {
+            currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, 0, Time.deltaTime / 0.1f);
+            currentAngle = new Vector3(
+                Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
+                Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
+                Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime * 2));
+        }
+
+        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        {
+            currentVerticalSpeed = Mathf.Lerp(currentVerticalSpeed, 0, Time.deltaTime / 0.1f);
+        }
+
+        if (transform.position.y > verticalUpperLimit)
+        {
+            transform.position = new Vector3(transform.position.x, verticalUpperLimit - 1, transform.position.z);
+            currentVerticalSpeed = 0;
+        }
+
+        if (transform.position.y < verticalLowerLimit)
+        {
+            transform.position = new Vector3(transform.position.x, verticalLowerLimit + 1, transform.position.z);
+            currentVerticalSpeed = 0;
+        }
+
+        if (transform.position.x < leftBorderLimitX)
+        {
+            transform.position = new Vector3(leftBorderLimitX + 1, transform.position.y, transform.position.z);
+            currentHorizontalSpeed = 0;
+            currentAngle = new Vector3(
+                Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
+                Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
+                Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime * 2));
+            Input.ResetInputAxes();
+
+        }
+
+        if (transform.position.x > rightBorderLimitX)
+        {
+            transform.position = new Vector3(rightBorderLimitX - 1, transform.position.y, transform.position.z);
+            currentHorizontalSpeed = 0;
+            currentAngle = new Vector3(
+                Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
+                Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
+                Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime * 2));
+            Input.ResetInputAxes();
+        }
+    }
+
+    /// <summary>
+    /// Contains code for all keyboard input relating to player control
+    /// </summary>
+    private void KeyBoardInput()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            moveLeft();
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            moveRight();
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            moveUp();
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            moveDown();
+        }
+    }
+
+    /// <summary>
+    /// Called to enable movement of plane (called from animation (as an event))
     /// </summary>
 	public void EnableMovement()
 	{
         rb.isKinematic = false;
-        rb.velocity = new Vector3(0, 0, 20);
+        rb.velocity = storedVelocity;
         moving = true;
-	    GetComponent<PlayerController>().enabled = true;
 	}
+
+    /// <summary>
+    /// Disables player movement
+    /// </summary>
+    public void DisableMovement()
+    {
+        storedVelocity = rb.velocity;
+        rb.isKinematic = true;
+        moving = false;
+    }
 
     public void TakeOffAnim()
     {

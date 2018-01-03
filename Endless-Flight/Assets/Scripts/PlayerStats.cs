@@ -16,6 +16,18 @@ public class PlayerStats : MonoBehaviour {
 
     }
 
+    private void OnEnable()
+    {
+        GameStateManager.pauseGame += DisableScoreCount;
+        GameStateManager.resumeGame += EnableScoreCount;
+    }
+
+    private void OnDisable()
+    {
+        GameStateManager.pauseGame -= DisableScoreCount;
+        GameStateManager.resumeGame -= EnableScoreCount;
+    }
+
     // Update is called once per frame
     void Update() {
 
@@ -38,17 +50,15 @@ public class PlayerStats : MonoBehaviour {
         health += healthModifyBy;
     }
 
-    public void flipScoreState()
+    private void EnableScoreCount()
     {
-        if(scoreEnabled)
-        {
-            scoreEnabled = false;
-            return;
-        }
-        else
-        {
-            scoreEnabled = true;
-            return;
-        }
+        scoreEnabled = true;
     }
+
+    private void DisableScoreCount()
+    {
+        scoreEnabled = false;
+    }
+
+
 }

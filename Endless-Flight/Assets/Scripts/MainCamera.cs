@@ -10,6 +10,7 @@ public class MainCamera : MonoBehaviour
     public bool cameraLockToPlayer = false;
     private Vector3 currentAngle;
     public int cameraType = 0;
+    public Vector3 cameraMenuPosition;
 
     /// <summary>
     /// Used to initialise curretn class
@@ -17,14 +18,29 @@ public class MainCamera : MonoBehaviour
     void Start ()
     {
         currentAngle = transform.eulerAngles;
+        transform.position = cameraMenuPosition;
     }
-	
-	/// <summary>
+
+    /// <summary>
+    /// Called when this script is enabled
+    /// </summary>
+    private void OnEnable()
+    {
+        GameStateManager.startGame += StartGame;
+    }
+
+    /// <summary>
+    /// Called when this script is enabled
+    /// </summary>
+    private void OnDisable()
+    {
+        GameStateManager.startGame -= StartGame;
+    }
+
+    /// <summary>
     /// Called once per frame
     /// </summary>
-	void Update () { 
-
-        
+    void Update () { 
 
 	    if (cameraLockToPlayer)
 	    {
@@ -45,13 +61,16 @@ public class MainCamera : MonoBehaviour
 	        }
 	    }
 
-	    if (Input.GetKey(KeyCode.E))
+	    if (Input.GetKeyDown(KeyCode.E))
 	    {
 	        switchCamera();
 	    }
 
 	}
 
+    /// <summary>
+    /// Called every physics frame updated
+    /// </summary>
     void LateUpdate()
     {
         if (gameStarted)
@@ -60,6 +79,9 @@ public class MainCamera : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called when camera is switched
+    /// </summary>
     void switchCamera()
     {
         if (cameraType == 0)
@@ -72,11 +94,17 @@ public class MainCamera : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called by event to start the camera movement
+    /// </summary>
     public void StartGame()
     {
         gameStarted = true;
     }
 
+    /// <summary>
+    /// Lerps the camera from the MainMenuPosition to player follow position
+    /// </summary>
     private void LerpCameraToGameStart()
     {
         transform.position = new Vector3(Mathf.Lerp(transform.position.x, Player.transform.position.x, Time.deltaTime/1.5f),
@@ -94,7 +122,7 @@ public class MainCamera : MonoBehaviour
         {
             gameStarted = false;
             cameraLockToPlayer = true;
-            GameStateManager.current.LoadAllGameComponents();
+            GameStateManager.current.LoadAllStartGameComponents();
         }
     }
 }

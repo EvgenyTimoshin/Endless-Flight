@@ -14,8 +14,7 @@ public class IslandScript : MonoBehaviour
     /// </summary>
     void Start()
     {
-        BoxCollider b = GetComponentInParent<BoxCollider>();
-        b.isTrigger = true;
+        
     }
 
     /// <summary>

@@ -5,14 +5,47 @@ using UnityEngine;
 public class SkyBoxConfig : MonoBehaviour {
 
 	public float skyBoxRotSpeed = 1f;
+    private bool rotationEnabled = true;
 	// Use this for initialization
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+       
+    }
+
+    private void OnEnable()
+    {
+        GameStateManager.pauseGame += RotationDisabled;
+        GameStateManager.resumeGame += RotationEnabled;
+    }
+
+    private void OnDisable()
+    {
+        GameStateManager.pauseGame -= RotationDisabled;
+        GameStateManager.resumeGame -= RotationEnabled;
+
+    }
+
+    // Update is called once per frame
+    void Update ()
 	{
-		RenderSettings.skybox.SetFloat("_Rotation", Time.time * skyBoxRotSpeed);
-	}
+        if(rotationEnabled)
+        {
+            RenderSettings.skybox.SetFloat("_Rotation", Time.time * skyBoxRotSpeed);
+        }
+    }
+
+    /// <summary>
+    /// Disabled Skybox rotation
+    /// </summary>
+    private void RotationDisabled()
+    {
+        rotationEnabled = false;
+    }
+
+    /// <summary>
+    /// Enables SkyBox rotation
+    /// </summary>
+    private void RotationEnabled()
+    {
+        rotationEnabled = true;
+    }
 }

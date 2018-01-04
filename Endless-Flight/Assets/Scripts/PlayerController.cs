@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
         if (moving)
         {
             CheckPlayerBorders();
-
+            CheckControlInput();
             KeyBoardInput();
 
             //Touchscreen Controls
@@ -158,33 +158,49 @@ public class PlayerController : MonoBehaviour
 
     void moveUp()
     {
+        currentAngle = new Vector3(
+        Mathf.LerpAngle(currentAngle.x, -50, Time.deltaTime),
+            currentAngle.y,
+            currentAngle.z);
         currentVerticalSpeed = Mathf.Lerp(currentVerticalSpeed, +maxVerticalSpeed, Time.deltaTime);
     }
 
     void moveDown()
     {
+        currentAngle = new Vector3(
+            Mathf.LerpAngle(currentAngle.x, 50, Time.deltaTime),
+            currentAngle.y,
+            currentAngle.z);
         currentVerticalSpeed = Mathf.Lerp(currentVerticalSpeed, -maxVerticalSpeed, Time.deltaTime);
     }
 
-    /// <summary>
-    ///Contains code for checking if player is in the game movement bounds 
-    /// </summary>
-    private void CheckPlayerBorders()
+
+    private void CheckControlInput()
     {
         if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
             currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, 0, Time.deltaTime / 0.1f);
             currentAngle = new Vector3(
-                Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime),
+                Mathf.LerpAngle(currentAngle.x, currentAngle.x, Time.deltaTime),
                 Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
                 Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime * 2));
         }
 
         if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         {
+            currentAngle = new Vector3(
+                Mathf.LerpAngle(currentAngle.x, 0, Time.deltaTime * 2),
+                Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime),
+                Mathf.LerpAngle(currentAngle.z, currentAngle.z, Time.deltaTime));
             currentVerticalSpeed = Mathf.Lerp(currentVerticalSpeed, 0, Time.deltaTime / 0.1f);
         }
-
+    }
+    /// <summary>
+    ///Contains code for checking if player is in the game movement bounds 
+    /// </summary>
+    private void CheckPlayerBorders()
+    {
+        
         if (transform.position.y > verticalUpperLimit)
         {
             transform.position = new Vector3(transform.position.x, verticalUpperLimit - 1, transform.position.z);

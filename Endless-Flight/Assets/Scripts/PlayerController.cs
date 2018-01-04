@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
     public float rightBorderLimitX = 350;
     public float verticalUpperLimit = 100;
     public float verticalLowerLimit = 20;
-    //float maxHorizontalSpeed = 5000;
     public float bonusHorizontalSpeed = 0;
     public float boostHorizontalSpeed = 0;
 
@@ -205,12 +204,14 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, verticalUpperLimit - 1, transform.position.z);
             currentVerticalSpeed = 0;
+            Input.ResetInputAxes();
         }
 
         if (transform.position.y < verticalLowerLimit)
         {
             transform.position = new Vector3(transform.position.x, verticalLowerLimit + 1, transform.position.z);
             currentVerticalSpeed = 0;
+            Input.ResetInputAxes();
         }
 
         if (transform.position.x < leftBorderLimitX)

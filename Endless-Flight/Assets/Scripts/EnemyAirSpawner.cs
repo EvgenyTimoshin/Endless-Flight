@@ -15,17 +15,34 @@ public class EnemyAirSpawner : MonoBehaviour {
     public float planeYSpawnPos = 90;
 
 	// Use this for initialization
-	void Start () {
-        StartPlaneSpawning();
-
+	void Start ()
+    { 
         PlayerController p = player.GetComponent<PlayerController>();
         leftBorderLimitX = p.leftBorderLimitX;
         rightBorderLimitX = p.rightBorderLimitX;
         verticalLowerLimit = p.verticalLowerLimit;
         verticalUpperLimit = p.verticalUpperLimit;
 	}
-	
-	// Update is called once per frame
+
+    private void OnEnable()
+    {
+        GameStateManager.loadGameStartComponents += StartPlaneSpawning;
+        GameStateManager.pauseGame += StopPlaneSpawning;
+        GameStateManager.pauseGame += DisablePlanesMovement;
+        GameStateManager.resumeGame += ResumeAllPlaneMovement;
+        GameStateManager.resumeGame += StartPlaneSpawning;
+    }
+
+    private void OnDisable()
+    {
+        GameStateManager.loadGameStartComponents -= StartPlaneSpawning;
+        GameStateManager.pauseGame -= StopPlaneSpawning;
+        GameStateManager.resumeGame -= StartPlaneSpawning;
+        GameStateManager.pauseGame -= DisablePlanesMovement;
+        GameStateManager.resumeGame -= ResumeAllPlaneMovement;
+    }
+
+    // Update is called once per frame
 	void Update () {
 		
 	}
@@ -189,4 +206,31 @@ public class EnemyAirSpawner : MonoBehaviour {
         planes[2].GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -300);
 
     }
+
+    private void DisablePlanesMovement()
+    {
+        List<GameObject> planes = GameObjectPool.current.GetPooledEnemyAirPool();
+
+        foreach(var plane in planes)
+        {
+            if (plane.activeInHierarchy)
+            {
+                plane.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
+            }
+        }
+    }
+
+    private void ResumeAllPlaneMovement()
+    {
+        List<GameObject> planes = GameObjectPool.current.GetPooledEnemyAirPool();
+
+        foreach (var plane in planes)
+        {
+            if (plane.activeInHierarchy)
+            {
+                plane.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -300);
+            }
+        }
+    }
+
 }

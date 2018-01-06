@@ -11,6 +11,7 @@ public class GameObjectPool : MonoBehaviour
     private List<GameObject> islandPool;
     private List<GameObject> ringPool;
     private List<GameObject> shipPool;
+    private List<GameObject> enemyPlanePool;
 
     /// <summary>
     /// Called on awake of the scene, instantiates itself as a static class
@@ -28,6 +29,7 @@ public class GameObjectPool : MonoBehaviour
         islandPool = new List<GameObject>();
 	    ringPool = new List<GameObject>();
 	    shipPool = new List<GameObject>();
+        enemyPlanePool = new List<GameObject>();
         
 
         ///Pool islands
@@ -71,6 +73,19 @@ public class GameObjectPool : MonoBehaviour
 	            //Debug.Log(list[i].name);
 	        }
 	    }
+
+        //pool enemy aircrafts
+        list = Resources.LoadAll("EnemyAir");
+
+        for(int i = 0; i < list.Length; i++)
+        {
+            for(int j = 0; j < 5; j++)
+            {
+                GameObject obj = (GameObject)list[i];
+                obj.SetActive(false);
+                enemyPlanePool.Add(Instantiate(obj));
+            }
+        }
 
     }
 	
@@ -124,5 +139,20 @@ public class GameObjectPool : MonoBehaviour
         Debug.Log(index);
 
         return shipPool[index];
+    }
+
+    public GameObject GetPooledEnemyAir(string desiredObj)
+    {
+        foreach (var ob in enemyPlanePool)
+        {
+            //Debug.Log("Object in pool loop" + ob.name);
+
+            if (desiredObj == ob.name && !ob.activeInHierarchy)
+            {
+                return ob;
+            }
+        }
+
+        return null;
     }
 }

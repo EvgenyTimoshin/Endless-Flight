@@ -11,6 +11,7 @@ public class MainCamera : MonoBehaviour
     private Vector3 currentAngle;
     public int cameraType = 0;
     public Vector3 cameraMenuPosition;
+    public float cameraTilt = 10;
 
     /// <summary>
     /// Used to initialise curretn class
@@ -49,7 +50,7 @@ public class MainCamera : MonoBehaviour
                 transform.position =
                     new Vector3(Mathf.Lerp(transform.position.x, Player.transform.position.x, Time.deltaTime * 5),
                         Mathf.Lerp(transform.position.y,Player.transform.position.y + 20,Time.deltaTime + 5), Player.transform.position.z - 80);
-                transform.eulerAngles = new Vector3(5,0,0);
+                transform.eulerAngles = new Vector3(cameraTilt,0,0);
                 
 	        }
 	        else

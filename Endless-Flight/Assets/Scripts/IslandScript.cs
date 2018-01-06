@@ -23,9 +23,12 @@ public class IslandScript : MonoBehaviour
     /// <param name="other"></param>
     void OnTriggerExit(Collider other)
     {
-        gameObject.SetActive(false);
-
-        Spawn_Next_Island();
+        if (other.tag == "player")
+        {
+            gameObject.SetActive(false);
+            Spawn_Next_Island();
+        }
+        
         
     }
 

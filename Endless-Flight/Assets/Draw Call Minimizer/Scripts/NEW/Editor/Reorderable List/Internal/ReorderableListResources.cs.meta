@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f8b11260d0287d840886136e60148ce4
+labels:
+- DrawCall
+- Reduce
+- Optimize
+- Editor
+- Batch
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

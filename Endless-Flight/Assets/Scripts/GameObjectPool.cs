@@ -155,4 +155,9 @@ public class GameObjectPool : MonoBehaviour
 
         return null;
     }
+
+    public List<GameObject> GetPooledEnemyAirPool()
+    {
+        return enemyPlanePool;
+    }
 }

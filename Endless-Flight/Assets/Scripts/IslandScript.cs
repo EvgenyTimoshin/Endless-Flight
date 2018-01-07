@@ -8,6 +8,7 @@ using Random = System.Random;
 public class IslandScript : MonoBehaviour
 {
     private float NextIslandDistance = 3500;
+    private Vector3 playerSpeed;
 
     /// <summary>
     /// Sets up current class
@@ -27,6 +28,8 @@ public class IslandScript : MonoBehaviour
         {
             gameObject.SetActive(false);
             Spawn_Next_Island();
+            playerSpeed = other.GetComponent<Rigidbody>().velocity;
+            Debug.Log("PlayerSpeed at island " + playerSpeed.z);
         }
         
         

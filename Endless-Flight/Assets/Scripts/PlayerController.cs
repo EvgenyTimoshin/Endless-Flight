@@ -31,10 +31,10 @@ public class PlayerController : MonoBehaviour
     public float boostHorizontalSpeed = 0;
 
     private float screenCenterX;
-
+    public float startSpeed = 40f;
 	public bool moving = false;
 
-    private Vector3 storedVelocity = new Vector3(0, 0, 20);
+    private Vector3 storedVelocity;
 
     /// <summary>
     /// Called when this script is enabled
@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
         screenCenterX = Screen.width * 0.5f;
         mainCamera = Camera.main;
         Screen.orientation = ScreenOrientation.LandscapeLeft;
+        storedVelocity = new Vector3(0, 0, startSpeed);
     }
 
     /// <summary>

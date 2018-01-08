@@ -51,7 +51,7 @@ public class IslandScript : MonoBehaviour
     void Spawn_Next_Island()
     {
         Random rnd = new Random();
-        int choice = rnd.Next(1, 5);
+        int choice = rnd.Next(0, 5);
         String islandChoice = "Island2";
 
         if (choice == 0)

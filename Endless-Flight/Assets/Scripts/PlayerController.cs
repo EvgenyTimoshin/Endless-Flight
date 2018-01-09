@@ -36,6 +36,12 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 storedVelocity;
 
+    private bool speedBoosted = false;
+    private int speedBoostValue = 0;
+    private float speedBoostTimeout = 0;
+    private float speedBoostTimer = 0;
+
+
     /// <summary>
     /// Called when this script is enabled
     /// </summary>
@@ -120,18 +126,54 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
+    /// Begins boosted speed
+    /// </summary>
+    /// <param name="boostTimes"></param>
+    /// <param name="boostTime"></param>
+    public void BeginSpeedBoost(int boostValue, int boostTime)
+    {
+        speedBoosted = true;
+        speedBoostTimeout = boostTime;
+        speedBoostValue = boostValue;
+    }
+
+    /// <summary>
     /// Called Every Physics step
     /// </summary>
     void FixedUpdate()
     {
         if (moving)
         {
-            rb.AddRelativeForce(Vector3.forward * Time.deltaTime * forwardVelocity);
+            if(speedBoosted)
+            {
+                Debug.Log("BOOSTING");
+                BoostPlayerSpeed();
+            }
+
             rb.velocity = new Vector3(currentHorizontalSpeed, currentVerticalSpeed, rb.velocity.z);
             rb.transform.eulerAngles = currentAngle;
         }
     }
 
+    /// <summary>
+    /// Runs the calculation for player's speed boost
+    /// </summary>
+    private void BoostPlayerSpeed()
+    {
+        speedBoostTimer += Time.deltaTime;
+        if (speedBoostTimer < speedBoostTimeout)
+        {
+            rb.AddRelativeForce(Vector3.forward  * speedBoostValue);
+        }
+        else
+        {
+            speedBoosted = false;
+            speedBoostTimer = 0;
+            speedBoostTimeout = 0;
+            speedBoostValue = 0;
+            EnableMovement();
+        }
+    }
     /// <summary>
     /// Controls behaviour of object moving to the right
     /// </summary>
@@ -159,19 +201,19 @@ public class PlayerController : MonoBehaviour
     void moveUp()
     {
         currentAngle = new Vector3(
-        Mathf.LerpAngle(currentAngle.x, -50, Time.deltaTime),
+        Mathf.LerpAngle(currentAngle.x, -35, Time.deltaTime),
             currentAngle.y,
             currentAngle.z);
-        currentVerticalSpeed = Mathf.Lerp(currentVerticalSpeed, +maxVerticalSpeed, Time.deltaTime);
+        currentVerticalSpeed = Mathf.Lerp(currentVerticalSpeed, +maxVerticalSpeed, Time.deltaTime/2);
     }
 
     void moveDown()
     {
         currentAngle = new Vector3(
-            Mathf.LerpAngle(currentAngle.x, 50, Time.deltaTime),
+            Mathf.LerpAngle(currentAngle.x, 35, Time.deltaTime),
             currentAngle.y,
             currentAngle.z);
-        currentVerticalSpeed = Mathf.Lerp(currentVerticalSpeed, -maxVerticalSpeed, Time.deltaTime);
+        currentVerticalSpeed = Mathf.Lerp(currentVerticalSpeed, -maxVerticalSpeed, Time.deltaTime/2);
     }
 
 
@@ -270,10 +312,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
 	public void EnableMovement()
 	{
-        rb.isKinematic = false;
         rb.velocity = storedVelocity;
+        rb.isKinematic = false;
+       
         moving = true;
-	}
+        rb.velocity = storedVelocity;
+    }
 
     /// <summary>
     /// Disables player movement

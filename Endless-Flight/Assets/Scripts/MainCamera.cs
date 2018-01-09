@@ -41,26 +41,7 @@ public class MainCamera : MonoBehaviour
     /// <summary>
     /// Called once per frame
     /// </summary>
-    void Update () { 
-
-	    if (cameraLockToPlayer)
-	    {
-	        if (cameraType == 0)
-	        {
-                transform.position =
-                    new Vector3(Mathf.Lerp(transform.position.x, Player.transform.position.x, Time.deltaTime * 5),
-                        Mathf.Lerp(transform.position.y,Player.transform.position.y + 20,Time.deltaTime + 5), Player.transform.position.z - 80);
-                transform.eulerAngles = new Vector3(cameraTilt,0,0);
-                
-	        }
-	        else
-	        {
-	            transform.position =
-	                new Vector3(250,
-	                    90, Player.transform.position.z - 120);
-	            transform.eulerAngles = new Vector3(0, 0, 0);
-	        }
-	    }
+    void Update () {
 
 	    if (Input.GetKeyDown(KeyCode.E))
 	    {
@@ -77,6 +58,24 @@ public class MainCamera : MonoBehaviour
         if (gameStarted)
         {
             LerpCameraToGameStart();
+        }
+
+        if (cameraLockToPlayer)
+        {
+            if (cameraType == 0)
+            {
+                transform.position =
+                    new Vector3(Mathf.Lerp(transform.position.x, Player.transform.position.x, Time.deltaTime * 5),
+                        Mathf.Lerp(transform.position.y, Player.transform.position.y + 20, Time.deltaTime + 5), Player.transform.position.z - 80);
+                transform.eulerAngles = new Vector3(cameraTilt, 0, 0);
+            }
+            else
+            {
+                transform.position =
+                    new Vector3(250,
+                        90, Player.transform.position.z - 120);
+                transform.eulerAngles = new Vector3(0, 0, 0);
+            }
         }
     }
 
@@ -113,7 +112,7 @@ public class MainCamera : MonoBehaviour
                 Mathf.Lerp(transform.position.z, Player.transform.position.z - 80, Time.deltaTime/1.5f));
 
         currentAngle = new Vector3(
-            Mathf.LerpAngle(currentAngle.x, 5, Time.deltaTime/1.5f),
+            Mathf.LerpAngle(currentAngle.x, cameraTilt, Time.deltaTime/1.5f),
             Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime/1.5f),
             Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime));
 

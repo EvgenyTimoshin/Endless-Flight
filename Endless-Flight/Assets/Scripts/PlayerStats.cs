@@ -6,10 +6,17 @@ using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour {
 
     public Text scoreText;
-    public Slider healthBar;
+    public Slider fuelBar;
     private int score = 0;
-    private int health = 100;
+    private float Fuel = 100;
     private bool scoreEnabled = false;
+    private float timer = 0;
+    private float timeout = 0.2f;
+
+    private bool scoreIsMultiplied = false;
+    private int scoreMultiplier = 1;
+    private float scoreMultiplierTimer = 0;
+    private float scoreMultiplierTimeout = 0;
 
     // Use this for initialization
     void Start() {
@@ -33,32 +40,86 @@ public class PlayerStats : MonoBehaviour {
 
         if (scoreEnabled)
         {
-            increaseScoreBy(1);
+            if(scoreIsMultiplied)
+            {
+                scoreMultiplierTimer += Time.deltaTime;
+            }
+
+            timer += Time.deltaTime;
+            if (timer > timeout)
+            {
+                timer -= timeout;
+                increaseScoreBy(1);
+            }
+                modifyFuelBy(-1f * Time.deltaTime);
         }
 
-        scoreText.text = "Score " + score / 20;
-        healthBar.value = health;
+        scoreText.text = "Score " + score;
+        fuelBar.value = Fuel;
     }
 
+    /// <summary>
+    /// Increases score by specified amount
+    /// </summary>
+    /// <param name="plusScore"></param>
     public void increaseScoreBy(int plusScore)
     {
-        score += plusScore;
+        if (scoreIsMultiplied)
+        {
+            if (scoreMultiplierTimer > scoreMultiplierTimeout)
+            {
+                Debug.Log("ScoreMultiplierStoped");
+                scoreMultiplier = 1;
+                scoreMultiplierTimeout = 0;
+                scoreMultiplierTimer = 0;
+                scoreIsMultiplied = false;
+            }
+        }
+        score += plusScore * scoreMultiplier;
     }
 
-    public void modifyHealthBy(int healthModifyBy)
+    /// <summary>
+    /// Modifies players fuel by specified amount
+    /// </summary>
+    /// <param name="fuelModifyBy"></param>
+    public void modifyFuelBy(float fuelModifyBy)
     {
-        health += healthModifyBy;
+        if(Fuel + fuelModifyBy > 100)
+        {
+            Fuel = 100;
+        }
+        else
+        {
+            Fuel += fuelModifyBy;
+        }
     }
 
+    /// <summary>
+    /// Enables the score count
+    /// </summary>
     private void EnableScoreCount()
     {
         scoreEnabled = true;
     }
 
+    /// <summary>
+    /// Disables the score count
+    /// </summary>
     private void DisableScoreCount()
     {
         scoreEnabled = false;
     }
 
+    public void SetScoreMultiplier(int multiplier, int multipliertime)
+    {
+        scoreMultiplier = multiplier;
+        scoreMultiplierTimeout = multipliertime;
+        StartScoreMultiplier();
+    }
+
+    private void StartScoreMultiplier()
+    {
+        scoreIsMultiplied = true;
+    }
 
 }

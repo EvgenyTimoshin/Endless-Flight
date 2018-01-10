@@ -26,6 +26,7 @@ public class IslandScript : MonoBehaviour
     {
         if (other.tag == "player")
         {
+            gameObject.SetActive(false);
             spawnScenery();
         }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 //using NUnit.Framework.Constraints;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Random = System.Random;
 
 public class GameObjectPool : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameObjectPool : MonoBehaviour
     private List<GameObject> ringPool;
     private List<GameObject> shipPool;
     private List<GameObject> enemyPlanePool;
+    private List<GameObject> cloudsPool;
+    private static Random rnd = new Random();
 
     /// <summary>
     /// Called on awake of the scene, instantiates itself as a static class
@@ -30,6 +33,7 @@ public class GameObjectPool : MonoBehaviour
 	    ringPool = new List<GameObject>();
 	    shipPool = new List<GameObject>();
         enemyPlanePool = new List<GameObject>();
+        cloudsPool = new List<GameObject>();
         
 
         ///Pool islands
@@ -84,6 +88,19 @@ public class GameObjectPool : MonoBehaviour
                 GameObject obj = (GameObject)list[i];
                 obj.SetActive(false);
                 enemyPlanePool.Add(Instantiate(obj));
+            }
+        }
+
+        //pool clouds
+        list = Resources.LoadAll("Clouds");
+
+        for (int i = 0; i < list.Length; i++)
+        {
+            for (int j = 0; j < 15; j++)
+            {
+                GameObject obj = (GameObject)list[i];
+                obj.SetActive(false);
+                cloudsPool.Add(Instantiate(obj));
             }
         }
 
@@ -156,6 +173,19 @@ public class GameObjectPool : MonoBehaviour
         return null;
     }
 
+    public GameObject GetRandomPooledCloud()
+    {
+        int cloudChoice = rnd.Next(cloudsPool.Count);
+
+        while(cloudsPool[cloudChoice].activeInHierarchy)
+        {
+            cloudChoice = rnd.Next(cloudsPool.Count);
+        }
+
+        return cloudsPool[cloudChoice];
+    }
+
+    
     public List<GameObject> GetPooledEnemyAirPool()
     {
         return enemyPlanePool;

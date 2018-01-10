@@ -13,6 +13,9 @@ public class EnemyAirSpawner : MonoBehaviour {
     float verticalUpperLimit;
 
     public float planeYSpawnPos = 90;
+    public bool continueSpawning = false;
+    public static float waitTime = 10;
+    private WaitForSeconds waitForSeconds = new WaitForSeconds(waitTime);
 
 	// Use this for initialization
 	void Start ()
@@ -52,7 +55,9 @@ public class EnemyAirSpawner : MonoBehaviour {
     /// </summary>
     private void StartPlaneSpawning()
     {
-        InvokeRepeating("SpawnEnemyPlane",10f,15f);
+        continueSpawning = true;
+        StartCoroutine(SpawnEnemyPlane());
+        //InvokeRepeating("SpawnEnemyPlane",10f,15f);
     }
 
     /// <summary>
@@ -60,12 +65,17 @@ public class EnemyAirSpawner : MonoBehaviour {
     /// </summary>
     private void StopPlaneSpawning()
     {
-        CancelInvoke();
+        //CancelInvoke();
+        continueSpawning = false;
+        StopCoroutine(SpawnEnemyPlane());
+        
     }
 
     /// <summary>
     /// Decides which type of plane to spawn, and which pattern to spawn
     /// </summary>
+    /// 
+    /*
     private void SpawnEnemyPlane()
     {
         int planeChoice = rnd.Next(0, 3);
@@ -99,7 +109,46 @@ public class EnemyAirSpawner : MonoBehaviour {
             spawnTriple("warplane");
         }
     }
+    */
 
+    private IEnumerator SpawnEnemyPlane()
+    {
+        while (continueSpawning)
+        {
+            int planeChoice = rnd.Next(0, 3);
+            string typeOfPlane = "";
+
+            if (planeChoice == 0)
+            {
+                typeOfPlane = "plane";
+            }
+            else if (planeChoice == 1)
+            {
+                typeOfPlane = "bomber";
+            }
+            else if (planeChoice == 2)
+            {
+                typeOfPlane = "warplane";
+            }
+
+            int typeOfSpawn = rnd.Next(0, 3);
+
+            if (typeOfSpawn == 0)
+            {
+                spawnSingle(typeOfPlane);
+            }
+            else if (typeOfSpawn == 1)
+            {
+                spawnDouble(typeOfPlane);
+            }
+            else if (typeOfSpawn == 2)
+            {
+                spawnTriple("warplane");
+            }
+
+            yield return waitForSeconds;
+        }
+    }
 
     /// <summary>
     /// Spawns a plane at players position x in gameworld

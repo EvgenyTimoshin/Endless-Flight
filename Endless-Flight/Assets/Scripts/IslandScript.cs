@@ -9,6 +9,7 @@ public class IslandScript : MonoBehaviour
 {
     public delegate void ScenerySpawn();
     public static event ScenerySpawn spawnScenery;
+    private String playerTag = "player";
 
     /// <summary>
     /// Sets up current class
@@ -24,7 +25,7 @@ public class IslandScript : MonoBehaviour
     /// <param name="other"></param>
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "player")
+        if (other.tag == playerTag)
         {
             gameObject.SetActive(false);
             spawnScenery();

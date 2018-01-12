@@ -76,8 +76,6 @@ public class ScenerySpawner : MonoBehaviour {
 
 
         GameObject island = GameObjectPool.current.GetPooledIsland(islandChoice + "(Clone)");
-
-        Debug.Log("Extracted : " + island.name);
         island.transform.position = new Vector3(0, 0, playerPosition.z + 4000);
         island.SetActive(true);
     }

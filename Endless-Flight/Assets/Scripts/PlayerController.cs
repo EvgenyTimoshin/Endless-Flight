@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
         {
             if(speedBoosted)
             {
-                Debug.Log("BOOSTING");
+                
                 BoostPlayerSpeed();
             }
 

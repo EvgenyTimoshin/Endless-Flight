@@ -54,7 +54,7 @@ public class PlayerStats : MonoBehaviour {
                 modifyFuelBy(-1f * Time.deltaTime);
         }
 
-        scoreText.text = "Score " + score;
+        
         fuelBar.value = Fuel;
     }
 
@@ -76,6 +76,7 @@ public class PlayerStats : MonoBehaviour {
             }
         }
         score += plusScore * scoreMultiplier;
+        scoreText.text = "Score " + score;
     }
 
     /// <summary>

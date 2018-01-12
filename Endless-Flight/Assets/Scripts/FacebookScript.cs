@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class FacebookScript : MonoBehaviour {
 
+	public Text FriendsText; 
+
 	private void Awake()
 	{
 		if (!FB.IsInitialized) {
@@ -40,4 +42,39 @@ public class FacebookScript : MonoBehaviour {
 	{
 		FB.LogOut ();
 	}
+	#endregion
+
+	public void FacebookShare()
+	{
+		FB.ShareLink (new System.Uri ("http://resocoder.com"));
+	}
+
+	#region Inviting
+	public void FacebookGameRequest()
+	{
+		FB.AppRequest ("Hey, come and play this awesome game!", title: "Endless Flight");
+
+	}
+
+	public void FacebookInvite()
+	{
+		FB.Mobile.AppInvite(new System.Uri(""));
+	}
+
+
+	#endregion
+
+	public void GetFriends()
+	{
+		string query =  "/me/friends";
+		FB.API (query, HttpMethod.GET, result => {
+			var dictionary = Facebook.MiniJSON.Json.Deserialize (result.RawResult);
+			var friendsList = (List<object>)dictionary ["data"];
+			FriendsText.text = string.Empty;
+
+			foreach(var dict in friendsList)
+				FriendsText.text += ((Dictionary<string, object>)dict)["name"];
+		});
+
+
 }

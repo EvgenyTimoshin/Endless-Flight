@@ -71,46 +71,6 @@ public class EnemyAirSpawner : MonoBehaviour {
         
     }
 
-    /// <summary>
-    /// Decides which type of plane to spawn, and which pattern to spawn
-    /// </summary>
-    /// 
-    /*
-    private void SpawnEnemyPlane()
-    {
-        int planeChoice = rnd.Next(0, 3);
-        string typeOfPlane = "";
-
-        if (planeChoice == 0)
-        {
-            typeOfPlane = "plane";
-        }
-        else if (planeChoice == 1)
-        {
-            typeOfPlane = "bomber";
-        }
-        else if (planeChoice == 2)
-        {
-            typeOfPlane = "warplane";
-        }
-
-        int typeOfSpawn = rnd.Next(0,3);
-        
-        if (typeOfSpawn == 0)
-        {
-            spawnSingle(typeOfPlane);
-        }
-        else if (typeOfSpawn == 1)
-        {
-            spawnDouble(typeOfPlane);
-        }
-        else if(typeOfSpawn == 2)
-        {
-            spawnTriple("warplane");
-        }
-    }
-    */
-
     private IEnumerator SpawnEnemyPlane()
     {
         while (continueSpawning)

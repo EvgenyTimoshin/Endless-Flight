@@ -1,10 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
-public class PickUpSpawner : MonoBehaviour {
+public class PickUpSpawner : MonoBehaviour
+{
 
-    public static PickUpSpawner current;
+    public GameObject player;
+    private static PickUpSpawner current;
+    private bool allowPickUpSpawn = false;
+    private Random rnd = new Random();
+    private Vector3 spawnPos;
+    private WaitForSeconds spawnInterval = new WaitForSeconds(3f);
 
     private void Awake()
     {
@@ -41,9 +48,34 @@ public class PickUpSpawner : MonoBehaviour {
     /// </summary>
     private void EnablePickUpSpawning()
     {
-        InvokeRepeating("SpawnSpeedBoost", 25f, 20f);
-        InvokeRepeating("SpawnFuel", 20f, 30f);
-        InvokeRepeating("SpawnScoreBooster", 10f, 30f);
+        StartCoroutine(SpawnObjects());
+    }
+
+    IEnumerator SpawnObjects()
+    {
+        while (allowPickUpSpawn)
+        {
+            spawnPos = new Vector3(rnd.Next(130,250),rnd.Next(50,150) , player.transform.position.z + 400f);
+
+            int typeOfObjectSpawn = rnd.Next(0, 6);
+
+            if (typeOfObjectSpawn == 0 || typeOfObjectSpawn == 1 || typeOfObjectSpawn == 2)
+            {
+                SpawnScoreBoosters(spawnPos);
+            }
+
+            if (typeOfObjectSpawn == 3 || typeOfObjectSpawn == 4)
+            {
+                SpawnScoreMultiplier(spawnPos);
+            }
+
+            if (typeOfObjectSpawn == 5)
+            {
+                SpawnSpeedBoosters(spawnPos);
+            }
+            
+            yield return spawnInterval;
+        }
     }
 
     /// <summary>
@@ -51,6 +83,37 @@ public class PickUpSpawner : MonoBehaviour {
     /// </summary>
     private void DisablePickUpSpawning()
     {
-        CancelInvoke();
+        StopAllCoroutines();
+    }
+
+    public void SpawnSpeedBoosters(Vector3 spawnPos)
+    {
+        
+            GameObject speedBooster = GameObjectPool.current.GetPooledPickUp("SpeedBooster");
+            speedBooster.SetActive(true);
+
+            speedBooster.transform.position = spawnPos;
+    }
+
+    public void SpawnScoreBoosters(Vector3 spawnPos)
+    {
+       
+            GameObject scoreBooster = GameObjectPool.current.GetPooledPickUp("ScoreBooster");
+            scoreBooster.SetActive(true);
+
+            scoreBooster.transform.position = spawnPos;
+
+    }
+
+
+    public void SpawnScoreMultiplier(Vector3 spawnPos)
+    { 
+        GameObject scoreMultiplier = GameObjectPool.current.GetPooledPickUp("BlueScoreMultiplier");
+        scoreMultiplier.SetActive(true);
+
+        scoreMultiplier.transform.position = spawnPos;
     }
 }
+
+
+

@@ -14,6 +14,7 @@ public class GameObjectPool : MonoBehaviour
     private List<GameObject> shipPool;
     private List<GameObject> enemyPlanePool;
     private List<GameObject> cloudsPool;
+    private List<GameObject> pickUpPool;
     private static Random rnd = new Random();
 
     /// <summary>
@@ -34,6 +35,7 @@ public class GameObjectPool : MonoBehaviour
 	    shipPool = new List<GameObject>();
         enemyPlanePool = new List<GameObject>();
         cloudsPool = new List<GameObject>();
+	    pickUpPool = new List<GameObject>();
         
 
         ///Pool islands
@@ -104,6 +106,17 @@ public class GameObjectPool : MonoBehaviour
             }
         }
 
+	    list = Resources.LoadAll("PickUps");
+
+	    for (int i = 0; i < list.Length; i++)
+	    {
+	        for (int j = 0; j < 10; j++)
+	        {
+	            GameObject obj = (GameObject)list[i];
+	            obj.SetActive(false);
+	            pickUpPool.Add(Instantiate(obj));
+	        }
+	    }
     }
 	
     /// <summary>
@@ -185,7 +198,22 @@ public class GameObjectPool : MonoBehaviour
         return cloudsPool[cloudChoice];
     }
 
-    
+    public GameObject GetPooledPickUp(string desiredPickup)
+    {
+        foreach (var ob in enemyPlanePool)
+        {
+            //Debug.Log("Object in pool loop" + ob.name);
+
+            if (desiredPickup == ob.name && !ob.activeInHierarchy)
+            {
+                return ob;
+            }
+        }
+
+        return null;
+    }
+
+
     public List<GameObject> GetPooledEnemyAirPool()
     {
         return enemyPlanePool;

@@ -20,7 +20,7 @@ public class GameObjectPool : MonoBehaviour
     /// <summary>
     /// Called on awake of the scene, instantiates itself as a static class
     /// </summary>
-    void Awake()
+    public void Awake()
     {
         current = this;
     }
@@ -217,5 +217,15 @@ public class GameObjectPool : MonoBehaviour
     public List<GameObject> GetPooledEnemyAirPool()
     {
         return enemyPlanePool;
+    }
+
+    public List<GameObject> GetPooledClouds()
+    {
+        return cloudsPool;
+    }
+
+    public List<GameObject> GetPooledPickUps()
+    {
+        return pickUpPool;
     }
 }

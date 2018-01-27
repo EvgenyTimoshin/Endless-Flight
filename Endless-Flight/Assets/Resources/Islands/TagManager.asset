@@ -10,7 +10,6 @@ TagManager:
   - player
   - cloud
   - enemyAir
-  - island
   layers:
   - Default
   - TransparentFX

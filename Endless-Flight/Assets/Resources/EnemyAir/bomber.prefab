@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 65741802005869128}
   m_Layer: 0
   m_Name: bomber
-  m_TagString: Untagged
+  m_TagString: enemyAir
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

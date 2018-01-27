@@ -12,6 +12,7 @@ public class MainCamera : MonoBehaviour
     public int cameraType = 0;
     public Vector3 cameraMenuPosition;
     public float cameraTilt = 10;
+    private bool cameraEndScreen = false;
 
     /// <summary>
     /// Used to initialise curretn class
@@ -28,6 +29,7 @@ public class MainCamera : MonoBehaviour
     private void OnEnable()
     {
         GameStateManager.startGame += StartGame;
+        GameStateManager.gameOver += CameraMoveGameOver;
     }
 
     /// <summary>
@@ -36,6 +38,7 @@ public class MainCamera : MonoBehaviour
     private void OnDisable()
     {
         GameStateManager.startGame -= StartGame;
+        GameStateManager.gameOver -= CameraMoveGameOver;
     }
 
     /// <summary>
@@ -60,7 +63,7 @@ public class MainCamera : MonoBehaviour
             LerpCameraToGameStart();
         }
 
-        if (cameraLockToPlayer)
+        if (cameraLockToPlayer && !cameraEndScreen)
         {
             if (cameraType == 0)
             {
@@ -76,6 +79,11 @@ public class MainCamera : MonoBehaviour
                         90, Player.transform.position.z - 120);
                 transform.eulerAngles = new Vector3(0, 0, 0);
             }
+        }
+
+        if (cameraEndScreen)
+        {
+            LerpCameraToGameEnd();
         }
     }
 
@@ -124,5 +132,24 @@ public class MainCamera : MonoBehaviour
             cameraLockToPlayer = true;
             GameStateManager.current.LoadAllStartGameComponents();
         }
+    }
+
+    private void LerpCameraToGameEnd()
+    {
+        transform.position = new Vector3(Mathf.Lerp(transform.position.x, Player.transform.position.x, Time.deltaTime/1.5f),
+                Mathf.Lerp(transform.position.y, Player.transform.position.y + 60, Time.deltaTime/1.5f),
+                Mathf.Lerp(transform.position.z, Player.transform.position.z - 80, Time.deltaTime/1.5f));
+
+        currentAngle = new Vector3(
+            Mathf.LerpAngle(currentAngle.x, cameraTilt, Time.deltaTime/1.5f),
+            Mathf.LerpAngle(currentAngle.y, 0, Time.deltaTime/1.5f),
+            Mathf.LerpAngle(currentAngle.z, 0, Time.deltaTime));
+
+        transform.eulerAngles = currentAngle;
+    }
+
+    public void CameraMoveGameOver()
+    {
+        cameraEndScreen = true;
     }
 }

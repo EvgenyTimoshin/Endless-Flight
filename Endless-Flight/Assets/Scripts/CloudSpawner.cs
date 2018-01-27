@@ -16,6 +16,9 @@ public class CloudSpawner : MonoBehaviour {
     public float cloudLiftHeightPlus = 50;
 
     // Use this for initialization
+    /// <summary>
+    /// Spawns cloud blocks on startup until max players camera view
+    /// </summary>
     void Start () {
         spawnCloudBlock(-10000);
         spawnCloudBlock(-9000);
@@ -27,6 +30,7 @@ public class CloudSpawner : MonoBehaviour {
         spawnCloudBlock(-3000);
         spawnCloudBlock(-2000);
         spawnCloudBlock(-1000);
+        
     }
 	
 	// Update is called once per frame
@@ -38,6 +42,10 @@ public class CloudSpawner : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    /// Spawns a block of clouds relative to the players position
+    /// </summary>
+    /// <param name="playerPositonZ"> Reference to players position</param>
     private void spawnCloudBlock(float playerPositonZ)
     {
         float zSpawnPos = playerPositonZ + 8200;
@@ -55,13 +63,13 @@ public class CloudSpawner : MonoBehaviour {
         for(int i = 0; i < clouds.Count/2; i++)
         {
             clouds[i].transform.position = new Vector3(rnd.Next(LeftSideSpawnLimitLX,LeftSideSpawnLimitRX), clouds[i].transform.position.y + cloudLiftHeightPlus, rnd.Next((int)zSpawnPos, (int)zSpawnPos + 1000));
-            clouds[i].GetComponent<Rigidbody>().velocity = new Vector3(rnd.Next(-15,-10),0,0);
+            //clouds[i].GetComponent<Rigidbody>().velocity = new Vector3(rnd.Next(-15,-10),0,0);
         }
 
         for(int i = clouds.Count/2; i < clouds.Count; i++)
         {
             clouds[i].transform.position = new Vector3(rnd.Next(RightSideSpawnLimitLX, RightSideSpawnLimitRX), clouds[i].transform.position.y + cloudLiftHeightPlus, rnd.Next((int)zSpawnPos,(int)zSpawnPos+1000));
-            clouds[i].GetComponent<Rigidbody>().velocity = new Vector3(rnd.Next(-15, -10), 0, 0);
+            //clouds[i].GetComponent<Rigidbody>().velocity = new Vector3(rnd.Next(-15, -10), 0, 0);
         }
     }
 }

@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 114163646892763578}
   m_Layer: 8
   m_Name: BigThinClouds
-  m_TagString: Untagged
+  m_TagString: cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

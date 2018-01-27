@@ -25,6 +25,9 @@ public class GameStateManager : MonoBehaviour {
     public delegate void GameResume();
     public static event GameResume resumeGame;
 
+    public delegate void GameEnded();
+    public static event ComponentsLoad gameOver;
+
     /// <summary>
     /// Event used to load all components neccessary when game starts
     /// </summary>
@@ -77,6 +80,15 @@ public class GameStateManager : MonoBehaviour {
         if(resumeGame != null)
         {
             resumeGame();
+        }
+    }
+
+    public void GameOver()
+    {
+        if (gameOver != null)
+        {
+            gameOver();
+            pauseGame();
         }
     }
 

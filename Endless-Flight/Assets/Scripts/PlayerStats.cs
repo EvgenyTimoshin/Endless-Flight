@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour {
     public Text scoreText;
     public Slider fuelBar;
     private int score = 0;
-    private float Fuel = 100;
+    public float Fuel = 100;
     private bool scoreEnabled = false;
     private float timer = 0;
     private float timeout = 0.2f;
@@ -17,6 +17,8 @@ public class PlayerStats : MonoBehaviour {
     private int scoreMultiplier = 1;
     private float scoreMultiplierTimer = 0;
     private float scoreMultiplierTimeout = 0;
+
+    private bool playerAlive = true;
 
     // Use this for initialization
     void Start() {
@@ -51,11 +53,17 @@ public class PlayerStats : MonoBehaviour {
                 timer -= timeout;
                 increaseScoreBy(1);
             }
-                modifyFuelBy(-1f * Time.deltaTime);
+                modifyFuelBy(-5f * Time.deltaTime);
         }
 
-        
-        fuelBar.value = Fuel;
+        if (fuelBar != null)
+        {
+            fuelBar.value = Fuel;
+        }
+
+        CheckFuel();
+        CheckPlayerAlive();
+        CheckPlayerCrashed();
     }
 
     /// <summary>
@@ -76,7 +84,7 @@ public class PlayerStats : MonoBehaviour {
             }
         }
         score += plusScore * scoreMultiplier;
-        scoreText.text = "Score " + score;
+        scoreText.text = "S c o r e " + score;
     }
 
     /// <summary>
@@ -123,4 +131,39 @@ public class PlayerStats : MonoBehaviour {
         scoreIsMultiplied = true;
     }
 
+    private void CheckFuel()
+    {
+        if (Fuel < 0)
+        {
+            playerAlive = false;
+        }
+    }
+
+    private void CheckPlayerAlive()
+    {
+        if (!playerAlive)
+        {
+            GetComponent<Rigidbody>().useGravity = true;
+            GetComponent<Rigidbody>().mass = 2;
+            GetComponent<PlayerController>().enabled = false;
+
+            GetComponent<Rigidbody>().transform.Rotate(0.2f,0.2f,0);
+        }
+    }
+
+
+    private void CheckPlayerCrashed()
+    {
+        if (transform.position.y <= 5.5f)
+        {
+            GameStateManager.current.GameOver();
+            GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
 }

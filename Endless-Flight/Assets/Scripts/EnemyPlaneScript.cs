@@ -13,7 +13,7 @@ public class EnemyPlaneScript : MonoBehaviour {
     {
         //BoxCollider b = GetComponentInParent<BoxCollider>();
         //b.isTrigger = true;
-        player = GameObject.Find("transport_plane_green");
+        player = GameObject.FindGameObjectWithTag("player");
 
     }
 

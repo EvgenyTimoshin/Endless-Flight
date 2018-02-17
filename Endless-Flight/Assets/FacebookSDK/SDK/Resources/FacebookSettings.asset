@@ -15,9 +15,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 0
+  - 386763028427015
   appLabels:
-  - App Name
+  - Endless Flight
   cookie: 1
   logging: 1
   status: 1

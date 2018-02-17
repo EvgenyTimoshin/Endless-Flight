@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedBoosterScript : MonoBehaviour {
+public class SpeedBoosterScript : MonoBehaviour, IPickUp {
 
 	// Use this for initialization
 	void Start () {
@@ -16,11 +16,22 @@ public class SpeedBoosterScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "player")
+        if (other.tag == "player")
         {
-            gameObject.SetActive(false);
-            other.GetComponent<PlayerController>().BeginSpeedBoost(100, 5);
-            other.GetComponent<PlayerStats>().SetScoreMultiplier(5, 5);
+            PickUpInteraction(other);
         }
+    }
+
+    public void PickUpInteraction(Collider other)
+    {
+        PickUpDestroy();
+        other.GetComponent<PlayerController>().BeginSpeedBoost(100, 5);
+        other.GetComponent<PlayerStats>().SetScoreMultiplier(5, 5);
+        
+    }
+
+    public void PickUpDestroy()
+    {
+        gameObject.SetActive(false);
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreBoosterScript : MonoBehaviour {
+public class ScoreBoosterScript : MonoBehaviour, IPickUp {
 
     void Start()
     {
@@ -19,8 +19,18 @@ public class ScoreBoosterScript : MonoBehaviour {
     {
         if (other.tag == "player")
         {
-            gameObject.SetActive(false);
-            other.GetComponent<PlayerStats>().increaseScoreBy(50);
+           PickUpInteraction(other);
         }
+    }
+
+    public void PickUpInteraction(Collider other)
+    {
+        other.GetComponent<PlayerStats>().increaseScoreBy(50);
+        PickUpDestroy();
+    }
+
+    public void PickUpDestroy()
+    {
+        gameObject.SetActive(false);
     }
 }

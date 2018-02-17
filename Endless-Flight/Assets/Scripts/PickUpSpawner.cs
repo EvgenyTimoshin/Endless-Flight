@@ -51,6 +51,19 @@ public class PickUpSpawner : MonoBehaviour
         StartCoroutine(SpawnObjects());
     }
 
+    /// <summary>
+    /// Disables all pick ups from spawning
+    /// </summary>
+    private void DisablePickUpSpawning()
+    {
+        StopAllCoroutines();
+    }
+
+
+    /// <summary>
+    /// Runs and decides which objects to spawn in
+    /// </summary>
+    /// <returns></returns>
     IEnumerator SpawnObjects()
     {
         while (allowPickUpSpawn)
@@ -76,14 +89,6 @@ public class PickUpSpawner : MonoBehaviour
             
             yield return spawnInterval;
         }
-    }
-
-    /// <summary>
-    /// Disables all pick ups from spawning
-    /// </summary>
-    private void DisablePickUpSpawning()
-    {
-        StopAllCoroutines();
     }
 
     public void SpawnSpeedBoosters(Vector3 spawnPos)

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
-public class EnemyAirSpawner : MonoBehaviour {
+public class EnemyAirSpawner : MonoBehaviour, IPausable {
 
     Random rnd = new System.Random();
     public GameObject player;
-    float leftBorderLimitX;
-    float rightBorderLimitX;
-    float verticalLowerLimit;
-    float verticalUpperLimit;
+    private float leftBorderLimitX;
+    private float rightBorderLimitX;
+    private float verticalLowerLimit;
+    private float verticalUpperLimit;
 
     public float planeYSpawnPos = 90;
     public bool continueSpawning = false;
@@ -29,47 +29,21 @@ public class EnemyAirSpawner : MonoBehaviour {
 
     private void OnEnable()
     {
-        GameStateManager.loadGameStartComponents += StartPlaneSpawning;
-        GameStateManager.pauseGame += StopPlaneSpawning;
-        GameStateManager.pauseGame += DisablePlanesMovement;
-        GameStateManager.resumeGame += ResumeAllPlaneMovement;
-        GameStateManager.resumeGame += StartPlaneSpawning;
+        GameStateManager.loadGameStartComponents += Resume;
+        GameStateManager.pauseGame += Pause;
+        
     }
 
     private void OnDisable()
     {
-        GameStateManager.loadGameStartComponents -= StartPlaneSpawning;
-        GameStateManager.pauseGame -= StopPlaneSpawning;
-        GameStateManager.resumeGame -= StartPlaneSpawning;
-        GameStateManager.pauseGame -= DisablePlanesMovement;
-        GameStateManager.resumeGame -= ResumeAllPlaneMovement;
+        GameStateManager.loadGameStartComponents -= Resume;
+        GameStateManager.pauseGame -= Pause;
     }
 
     // Update is called once per frame
 	void Update () {
 		
 	}
-
-    /// <summary>
-    /// Invokes an event that repeats and runs the specified method over and over in specified time frame
-    /// </summary>
-    private void StartPlaneSpawning()
-    {
-        continueSpawning = true;
-        StartCoroutine(SpawnEnemyPlane());
-        //InvokeRepeating("SpawnEnemyPlane",10f,15f);
-    }
-
-    /// <summary>
-    /// Stops all invokes on current script
-    /// </summary>
-    private void StopPlaneSpawning()
-    {
-        //CancelInvoke();
-        continueSpawning = false;
-        StopCoroutine(SpawnEnemyPlane());
-        
-    }
 
     private IEnumerator SpawnEnemyPlane()
     {
@@ -242,4 +216,17 @@ public class EnemyAirSpawner : MonoBehaviour {
         }
     }
 
+    public void Pause()
+    {
+        continueSpawning = false;
+        StopCoroutine(SpawnEnemyPlane());
+        DisablePlanesMovement();
+    }
+
+    public void Resume()
+    {
+        continueSpawning = true;
+        StartCoroutine(SpawnEnemyPlane());
+        ResumeAllPlaneMovement();
+    }
 }

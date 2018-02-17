@@ -53,7 +53,7 @@ public class PlayerStats : MonoBehaviour {
                 timer -= timeout;
                 increaseScoreBy(1);
             }
-                modifyFuelBy(-5f * Time.deltaTime);
+                modifyFuelBy(-1f * Time.deltaTime);
         }
 
         if (fuelBar != null)

@@ -19,7 +19,7 @@ public class TestLogin : MonoBehaviour {
 
 	public void Login() {
 		if (FB.IsLoggedIn) {
-			FB.LoginWithReadPermissions (new List<string> { "user_friends" }, LoginCallBack);
+			//FB.LoginWithReadPermissions (new List<string> { "user_friends" }, LoginCallBack);
 
 		}
 	}

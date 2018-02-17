@@ -48,6 +48,7 @@ public class PickUpSpawner : MonoBehaviour
     /// </summary>
     private void EnablePickUpSpawning()
     {
+        allowPickUpSpawn = true;
         StartCoroutine(SpawnObjects());
     }
 
@@ -66,8 +67,10 @@ public class PickUpSpawner : MonoBehaviour
     /// <returns></returns>
     IEnumerator SpawnObjects()
     {
+        
         while (allowPickUpSpawn)
         {
+            Debug.Log("Spawning Objects");
             spawnPos = new Vector3(rnd.Next(130,250),rnd.Next(50,150) , player.transform.position.z + 400f);
 
             int typeOfObjectSpawn = rnd.Next(0, 6);
@@ -94,7 +97,7 @@ public class PickUpSpawner : MonoBehaviour
     public void SpawnSpeedBoosters(Vector3 spawnPos)
     {
         
-            GameObject speedBooster = GameObjectPool.current.GetPooledPickUp("SpeedBooster");
+            GameObject speedBooster = GameObjectPool.current.GetPooledPickUp("SpeedBooster" + "(Clone)");
             speedBooster.SetActive(true);
 
             speedBooster.transform.position = spawnPos;
@@ -103,7 +106,7 @@ public class PickUpSpawner : MonoBehaviour
     public void SpawnScoreBoosters(Vector3 spawnPos)
     {
        
-            GameObject scoreBooster = GameObjectPool.current.GetPooledPickUp("ScoreBooster");
+            GameObject scoreBooster = GameObjectPool.current.GetPooledPickUp("ScoreBooster" + "(Clone)");
             scoreBooster.SetActive(true);
 
             scoreBooster.transform.position = spawnPos;
@@ -113,7 +116,7 @@ public class PickUpSpawner : MonoBehaviour
 
     public void SpawnScoreMultiplier(Vector3 spawnPos)
     { 
-        GameObject scoreMultiplier = GameObjectPool.current.GetPooledPickUp("BlueScoreMultiplier");
+        GameObject scoreMultiplier = GameObjectPool.current.GetPooledPickUp("BlueScoreMultiplier"+"(Clone)");
         scoreMultiplier.SetActive(true);
 
         scoreMultiplier.transform.position = spawnPos;

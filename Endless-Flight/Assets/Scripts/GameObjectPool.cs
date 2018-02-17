@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 //using NUnit.Framework.Constraints;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -126,17 +127,9 @@ public class GameObjectPool : MonoBehaviour
     /// <returns>An island from the island pool</returns>
     public GameObject GetPooledIsland(string desiredObj)
     {
-        foreach (var ob in islandPool)
-        {
-            //Debug.Log("Object in pool loop" + ob.name);
+        var island = islandPool.Find(i => i.name == desiredObj && !i.activeInHierarchy);
 
-            if (desiredObj == ob.name && !ob.activeInHierarchy)
-            {
-                return ob;
-            }
-        }
-
-        return null;
+        return island;
     }
 
     /// <summary>
@@ -173,17 +166,9 @@ public class GameObjectPool : MonoBehaviour
 
     public GameObject GetPooledEnemyAir(string desiredObj)
     {
-        foreach (var ob in enemyPlanePool)
-        {
-            //Debug.Log("Object in pool loop" + ob.name);
+        var plane = enemyPlanePool.Find(p => p.name == desiredObj && !p.activeInHierarchy);
 
-            if (desiredObj == ob.name && !ob.activeInHierarchy)
-            {
-                return ob;
-            }
-        }
-
-        return null;
+        return plane;
     }
 
     public GameObject GetRandomPooledCloud()
@@ -200,17 +185,9 @@ public class GameObjectPool : MonoBehaviour
 
     public GameObject GetPooledPickUp(string desiredPickup)
     {
-        foreach (var ob in enemyPlanePool)
-        {
-            //Debug.Log("Object in pool loop" + ob.name);
+        var pickUp = pickUpPool.Find(p => p.name == desiredPickup && !p.activeInHierarchy);
 
-            if (desiredPickup == ob.name && !ob.activeInHierarchy)
-            {
-                return ob;
-            }
-        }
-
-        return null;
+        return pickUp;
     }
 
 

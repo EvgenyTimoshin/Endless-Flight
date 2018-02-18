@@ -16,22 +16,18 @@ public class TestLogin : MonoBehaviour {
 			FB.Init (InitCallBack);
 		}
 
-		ShowUI (); 
+
 	}
 
 	void InitCallBack() { 
 		Debug.Log ("FB has been initialised");
+		ShowUI (); 
 	}
 
 	public void Login() {
-<<<<<<< HEAD
+
 		if (!FB.IsLoggedIn) {
 			FB.LogInWithReadPermissions (new List<string> { "user_friends" }, LoginCallBack);
-=======
-		if (FB.IsLoggedIn) {
-			//FB.LoginWithReadPermissions (new List<string> { "user_friends" }, LoginCallBack);
->>>>>>> 646026b558db1d325bdb4203b06dbe4aa1685469
-
 		}
 	}
 

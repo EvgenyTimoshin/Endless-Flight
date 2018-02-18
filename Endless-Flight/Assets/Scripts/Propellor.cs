@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Propellor : MonoBehaviour {
+public class Propellor : MonoBehaviour, IPausable {
 
     private bool propellorRotating = true;
 
@@ -13,14 +13,14 @@ public class Propellor : MonoBehaviour {
 
     private void OnEnable()
     {
-        GameStateManager.pauseGame += DisableRotation;
-        GameStateManager.resumeGame += EnableRotation;
+        GameStateManager.pauseGame += Pause;
+        GameStateManager.resumeGame += Resume;
     }
 
     private void OnDisable()
     {
-        GameStateManager.pauseGame -= DisableRotation;
-        GameStateManager.resumeGame -= EnableRotation;
+        GameStateManager.pauseGame -= Pause;
+        GameStateManager.resumeGame -= Resume;
     }
 
     /// <summary>
@@ -33,12 +33,12 @@ public class Propellor : MonoBehaviour {
         }
     }
 
-    private void DisableRotation()
+    public void Pause()
     {
         propellorRotating = false;
     }
 
-    private void EnableRotation()
+    public void Resume()
     {
         propellorRotating = true;
     }

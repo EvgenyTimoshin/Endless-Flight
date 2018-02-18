@@ -8,7 +8,7 @@ using UnityEngine;
 /// <summary>
 /// Main Player class that controls the behaviour of the player object
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPausable
 {
     private Camera mainCamera;
     Rigidbody rb;
@@ -48,8 +48,8 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         GameStateManager.loadGameStartComponents += TakeOffAnim;
-        GameStateManager.pauseGame += DisableMovement;
-        GameStateManager.resumeGame += EnableMovement;
+        GameStateManager.pauseGame += Pause;
+        GameStateManager.resumeGame += Resume;
     }
 
     /// <summary>
@@ -58,8 +58,8 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         GameStateManager.loadGameStartComponents -= TakeOffAnim;
-        GameStateManager.pauseGame -= DisableMovement;
-        GameStateManager.resumeGame -= EnableMovement;
+        GameStateManager.pauseGame -= Pause;
+        GameStateManager.resumeGame -= Resume;
     }
 
     /// <summary>
@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
             speedBoostTimer = 0;
             speedBoostTimeout = 0;
             speedBoostValue = 0;
-            EnableMovement();
+            Resume();
         }
     }
     /// <summary>
@@ -307,34 +307,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Called to enable movement of plane (called from animation (as an event))
-    /// </summary>
-	public void EnableMovement()
-	{
-        rb.velocity = storedVelocity;
-        rb.isKinematic = false;
-       
-        moving = true;
-        rb.velocity = storedVelocity;
-    }
-
-    /// <summary>
-    /// Disables player movement
-    /// </summary>
-    public void DisableMovement()
-    {
-        storedVelocity = rb.velocity;
-        rb.isKinematic = true;
-        moving = false;
-    }
-
     public void TakeOffAnim()
     {
         Animation anim = GetComponent<Animation>();
         anim.Play("TakeOff");
     }
 
+    public void Pause()
+    {
+        storedVelocity = rb.velocity;
+        rb.isKinematic = true;
+        moving = false; ;
+    }
+
+    public void Resume()
+    {
+        rb.velocity = storedVelocity;
+        rb.isKinematic = false;
+
+        moving = true;
+        rb.velocity = storedVelocity;
+    }
 }
 
     

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
-public class ShipScript : MonoBehaviour
+public class ShipScript : MonoBehaviour, IPausable
 {
     private Rigidbody rb;
+    private Random rnd = new System.Random();
 
     public GameObject Player;
 	// Use this for initialization
@@ -16,7 +18,6 @@ public class ShipScript : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-	    rb.AddRelativeForce(Vector3.forward * Time.deltaTime * -50);
         
 	    if (transform.position.z < Player.transform.position.z - 200)
 	    {
@@ -24,4 +25,14 @@ public class ShipScript : MonoBehaviour
 	    }
         
 	}
+
+    public void Pause()
+    {
+        GetComponent<Rigidbody>().velocity = new Vector3(rnd.Next(0, 0), 0, 0);
+    }
+
+    public void Resume()
+    {
+        GetComponent<Rigidbody>().velocity = new Vector3(rnd.Next(0, 0), 0, 0);
+    }
 }

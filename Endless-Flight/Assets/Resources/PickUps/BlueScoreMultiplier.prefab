@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 199528052715995142}
   - component: {fileID: 65092493544112510}
   - component: {fileID: 114541048106190410}
+  - component: {fileID: 114005259205551652}
   m_Layer: 0
   m_Name: BlueScoreMultiplier
   m_TagString: Untagged
@@ -55,6 +56,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 13, y: 13, z: 13}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114005259205551652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1421623049591570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc38513f7a2c0074db6be132d7dd4d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114541048106190410
 MonoBehaviour:
   m_ObjectHideFlags: 1

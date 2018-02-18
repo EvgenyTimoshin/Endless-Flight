@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FuelScript : MonoBehaviour {
+public class FuelScript : MonoBehaviour, IPickUp {
 
 	// Use this for initialization
 	void Start () {
@@ -16,10 +16,20 @@ public class FuelScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "player")
+        if (other.tag == "player")
         {
-            gameObject.SetActive(false);
-            other.GetComponent<PlayerStats>().modifyFuelBy(30);
+            PickUpInteraction(other);
         }
+    }
+
+    public void PickUpInteraction(Collider other)
+    {   
+        other.GetComponent<PlayerStats>().modifyFuelBy(30);   
+        PickUpDestroy();
+    }
+
+    public void PickUpDestroy()
+    {
+       gameObject.SetActive(false);
     }
 }

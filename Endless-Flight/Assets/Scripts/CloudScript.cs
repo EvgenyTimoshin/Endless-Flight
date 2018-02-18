@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
-public class CloudScript : MonoBehaviour {
+public class CloudScript : MonoBehaviour, IPausable {
 
     private GameObject player;
     Random rnd = new System.Random();
@@ -15,15 +15,15 @@ public class CloudScript : MonoBehaviour {
 
     private void OnEnable()
     {
-        ResumeCloudMovement();
-        GameStateManager.pauseGame += StopCloudMovement;
-        GameStateManager.resumeGame += ResumeCloudMovement;
+        Resume();
+        GameStateManager.pauseGame += Pause;
+        GameStateManager.resumeGame += Resume;
     }
 
     private void OnDisable()
     {
-        GameStateManager.pauseGame -= StopCloudMovement;
-        GameStateManager.resumeGame -= ResumeCloudMovement;
+        GameStateManager.pauseGame -= Pause;
+        GameStateManager.resumeGame -= Resume;
     }
 
     // Update is called once per frame
@@ -34,21 +34,13 @@ public class CloudScript : MonoBehaviour {
         }
 	}
 
-    /// <summary>
-    /// Stops clouds moving
-    /// </summary>
-    private void StopCloudMovement()
+    public void Pause()
     {
         GetComponent<Rigidbody>().velocity = new Vector3(rnd.Next(0, 0), 0, 0);
     }
 
-    /// <summary>
-    /// ResumesCloudMovement
-    /// </summary>
-    private void ResumeCloudMovement()
+    public void Resume()
     {
         GetComponent<Rigidbody>().velocity = new Vector3(rnd.Next(-15, -10), 0, 0);
     }
-
-
 }

@@ -8,3 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainGame.unity
     guid: 182b1ceee62e787418e3be672e6f2fb6
+  - enabled: 1
+    path: Assets/Facebook/Resources/NotLoggedInUI.unity
+    guid: 787881f9fa5504a89b9eb88bdf39848c

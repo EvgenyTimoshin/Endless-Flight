@@ -73,7 +73,7 @@ public class PickUpSpawner : MonoBehaviour
             Debug.Log("Spawning Objects");
             spawnPos = new Vector3(rnd.Next(130,250),rnd.Next(50,150) , player.transform.position.z + 600f);
 
-            int typeOfObjectSpawn = rnd.Next(0, 6);
+            int typeOfObjectSpawn = rnd.Next(0, 8);
 
             if (typeOfObjectSpawn == 0 || typeOfObjectSpawn == 1 || typeOfObjectSpawn == 2)
             {
@@ -85,10 +85,15 @@ public class PickUpSpawner : MonoBehaviour
                 SpawnScoreMultiplier(spawnPos);
             }
 
-            if (typeOfObjectSpawn == 5)
+			if (typeOfObjectSpawn == 5 || typeOfObjectSpawn == 6)
             {
                 SpawnSpeedBoosters(spawnPos);
             }
+
+			if (typeOfObjectSpawn == 7)
+			{
+				SpawnFuel(spawnPos);
+			}
             
             yield return spawnInterval;
         }
@@ -121,6 +126,14 @@ public class PickUpSpawner : MonoBehaviour
 
         scoreMultiplier.transform.position = spawnPos;
     }
+
+	private void SpawnFuel(Vector3 spawnPos)
+	{
+		GameObject fuel = GameObjectPool.current.GetPooledPickUp("Fuel"+"(Clone)");
+		fuel.SetActive(true);
+
+		fuel.transform.position = spawnPos;
+	}
 }
 
 

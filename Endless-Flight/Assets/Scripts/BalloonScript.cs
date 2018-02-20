@@ -26,8 +26,10 @@ public class BalloonScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(transform.position.z < player.transform.position.z)
+		if(transform.position.z < player.transform.position.z - 100)
 		{
+			var currentAngle = new Vector3 (-90, 0, 0);
+			transform.eulerAngles = currentAngle;
 			gameObject.SetActive(false);
 		}
 	}

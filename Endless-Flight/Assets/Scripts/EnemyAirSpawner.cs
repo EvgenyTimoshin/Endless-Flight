@@ -75,10 +75,7 @@ public class EnemyAirSpawner : MonoBehaviour, IPausable {
             {
                 spawnDouble(typeOfPlane);
             }
-            else if (typeOfSpawn == 2)
-            {
-                spawnTriple("warplane");
-            }
+            
 
             yield return waitForSeconds;
         }

@@ -16,6 +16,7 @@ public class GameObjectPool : MonoBehaviour
     private List<GameObject> enemyPlanePool;
     private List<GameObject> cloudsPool;
     private List<GameObject> pickUpPool;
+	private List<GameObject> balloonPool;
     private static Random rnd = new Random();
 
     /// <summary>
@@ -37,6 +38,7 @@ public class GameObjectPool : MonoBehaviour
         enemyPlanePool = new List<GameObject>();
         cloudsPool = new List<GameObject>();
 	    pickUpPool = new List<GameObject>();
+		balloonPool = new List<GameObject> ();
         
 
         ///Pool islands
@@ -118,6 +120,19 @@ public class GameObjectPool : MonoBehaviour
 	            pickUpPool.Add(Instantiate(obj));
 	        }
 	    }
+
+		list = Resources.LoadAll("Balloons");
+
+		for (int i = 0; i < list.Length; i++)
+		{
+			for (int j = 0; j < 5; j++)
+			{
+				GameObject obj = (GameObject)list[i];
+				obj.SetActive(false);
+				balloonPool.Add(Instantiate(obj));
+				Debug.Log(list[i].name);
+			}
+		}
     }
 	
     /// <summary>
@@ -190,6 +205,12 @@ public class GameObjectPool : MonoBehaviour
         return pickUp;
     }
 
+	public GameObject GetPooledBalloon()
+	{
+		var balloon = balloonPool.Find(p => !p.activeInHierarchy);
+
+		return balloon;
+	}
 
     public List<GameObject> GetPooledEnemyAirPool()
     {
@@ -205,4 +226,6 @@ public class GameObjectPool : MonoBehaviour
     {
         return pickUpPool;
     }
+
+
 }

@@ -11,7 +11,7 @@ public class PickUpSpawner : MonoBehaviour
     private bool allowPickUpSpawn = false;
     private Random rnd = new Random();
     private Vector3 spawnPos;
-    private WaitForSeconds spawnInterval = new WaitForSeconds(3f);
+    private WaitForSeconds spawnInterval = new WaitForSeconds(4.5f);
 
     private void Awake()
     {
@@ -71,7 +71,7 @@ public class PickUpSpawner : MonoBehaviour
         while (allowPickUpSpawn)
         {
             Debug.Log("Spawning Objects");
-            spawnPos = new Vector3(rnd.Next(130,250),rnd.Next(50,150) , player.transform.position.z + 400f);
+            spawnPos = new Vector3(rnd.Next(130,250),rnd.Next(50,150) , player.transform.position.z + 600f);
 
             int typeOfObjectSpawn = rnd.Next(0, 6);
 

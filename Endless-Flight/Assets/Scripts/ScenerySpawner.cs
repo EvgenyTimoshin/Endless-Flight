@@ -71,7 +71,7 @@ public class ScenerySpawner : MonoBehaviour {
         }
         if (choice == 4)
         {
-            islandChoice = "Island5";
+            //islandChoice = "Island5";
         }
 
 

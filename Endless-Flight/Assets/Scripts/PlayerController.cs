@@ -327,7 +327,28 @@ public class PlayerController : MonoBehaviour, IPausable
 
         moving = true;
         rb.velocity = storedVelocity;
+		BoxCollider[] boxCols = GetComponents<BoxCollider>();
+
+		foreach (var b in boxCols) {
+			b.enabled = true;
+		}
     }
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.tag != "pickUp" && other.tag != "island")
+		{
+			//gameObject.SetActive(false);
+			GetComponent<Rigidbody>().useGravity = true;
+			GetComponent<Rigidbody>().mass = 2;
+			GetComponent<PlayerController>().enabled = false;
+
+			GetComponent<Rigidbody>().transform.Rotate(0.2f,0.2f,0);
+
+			Debug.Log ("Crashed into :  " + other);
+		}
+		//PlayerStats p = other.gameObject.GetComponent<PlayerStats>();
+	}
 }
 
     

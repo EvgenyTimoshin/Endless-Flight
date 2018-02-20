@@ -122,6 +122,16 @@ public class PlayerController : MonoBehaviour, IPausable
             {
                 moveRight();
             }
+
+            if (Input.acceleration.z < 0.19)
+            {
+                moveUp();
+            }
+
+            if (Input.acceleration.z > -0.19)
+            {
+                moveDown();
+            }
         }
     }
 

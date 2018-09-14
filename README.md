@@ -1,4 +1,7 @@
 # Endless-Flight
+
+# Pre Project General Outline
+
 A game developed in Unity, for .Net Framework and C# module.
 
 The project we are developing is a endless runner style game.
@@ -16,8 +19,16 @@ Many features are under consideration at the moment, such as Facebook Integratio
 The basic features outlined above are the main vision and focus of the project at the current moment.
 
 ---------------------------------------------------------------------------------------------------------
-# AFter Completion of the Project
+# After Completion of the Project
 
-([video]https://www.youtube.com/watch?v=mNdVrW13r0Y
+Check out the demo and see for yourself. Most of the general goals were reached, and some were exeeded.
+
+The development of the game ceased on Feb 20 , 2018
+
+# PC demo (An android version also exists)
+  Essentially identical with minor tweaks and accelerometer controls (Optimzed to run at 60 fps on mobile[mid range - high end phones])
+
+[![Video](http://img.youtube.com/vi/mNdVrW13r0Y/0.jpg)](https://www.youtube.com/watch?v=mNdVrW13r0Y)
+
 
 
